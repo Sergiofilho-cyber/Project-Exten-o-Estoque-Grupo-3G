@@ -7,7 +7,7 @@ Texto da seção **2. Projeto e Plano de Ação** do Portfólio Institucional (m
 | Item | Descrição |
 |---|---|
 | Curso | Análise e Desenvolvimento de Sistemas |
-| Disciplina | Projeto de Extensão Prática Profissional e Gestão |
+| Disciplina | Prática Profissional e Inovação para o Mercado de Trabalho |
 | Título | Sistema de Catalogação e Endereçamento de Estoque para Empresa do Setor de Iluminação |
 | Supervisora | Rosana Marques |
 | Parceiro | Grupo 3G |

@@ -13,6 +13,7 @@
 | Inventário | Contagem por local com geração de ajustes |
 | Documentos de saída | Recebimento de pedidos externos e baixa por QR code |
 | Importação | Carga inicial do catálogo por planilha (CSV) |
+| Interface | Identidade visual, tipografia e acabamento das telas, feitos pela equipe de front-end (ver [[plano-de-acao]]) |
 
 ## O que fica de fora
 
@@ -24,7 +25,6 @@
 | Várias empresas no mesmo banco | Cada instalação atende uma empresa |
 | Uso sem internet | Há Wi-Fi nos galpões |
 | Preço de venda, faturamento e nota fiscal | São do sistema comercial, não do estoque |
-| Acabamento visual | Nesta fase a interface é funcional, feita para testar |
 
 ## Fases futuras
 

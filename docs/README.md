@@ -15,6 +15,7 @@ Leia nesta ordem. Os quatro primeiros não exigem conhecimento de programação.
 5. [[domain-model]]: as regras de negócio.
 6. [[banco-de-dados]]: como a informação é guardada.
 7. [[roteiro]]: as etapas de construção, na ordem.
+8. [[plano-de-acao]]: o plano de ação do projeto de extensão, com as frentes da equipe e o cronograma.
 
 ## Mapa das pastas
 

@@ -71,6 +71,15 @@ Cada decisão registra o contexto, o que foi escolhido e o que isso custa. Decis
 - **Ganho**: cada pessoa sabe onde mexer, sem mudar a arquitetura.
 - **Custo**: `frontend/` também contém as poucas rotas de servidor (por exemplo, a de recebimento de documentos, T8.1). Os comandos `npm` rodam dentro de `frontend/`.
 
+## ADR-13 Divisão do trabalho por frente
+- **Contexto**: a equipe tem 7 integrantes divididos em três frentes: coordenação e backend (3), banco de dados (3) e front-end (2). O banco já está especificado em [[banco-de-dados]] e na migração inicial. Complementa o [[#ADR-12 Repositório dividido em frontend e backend|ADR-12]].
+- **Decisão**:
+  - **Banco de dados** cuida de `backend/supabase/`: constrói o banco no Supabase usando a documentação e a migração inicial como especificação, cria dados de teste, gera os tipos e escreve as migrações seguintes.
+  - **Backend** cuida da parte de servidor em `frontend/`: `lib/` (acesso ao Supabase), `proxy.ts` (sessão e proteção de rotas) e `app/api/` (rotas de servidor). Também testa o banco entregue e estrutura os testes de integração.
+  - **Front-end** cuida das telas e componentes em `frontend/app/` e `frontend/components/`, incluindo as telas funcionais e o acabamento visual.
+- **Ganho**: cada frente sabe onde mexer e quem revisa cada parte.
+- **Custo**: as frentes dependem umas das outras (o banco precisa estar pronto antes da integração). A ordem das fases está em [[plano-de-acao]].
+
 ## Pendentes
 
 ### Publicação em container na VPS

@@ -13,7 +13,7 @@
 | Inventário | Contagem por local com geração de ajustes |
 | Documentos de saída | Recebimento de pedidos externos e baixa por QR code |
 | Importação | Carga inicial do catálogo por planilha (CSV) |
-| Interface | Identidade visual, tipografia e acabamento das telas, feitos pela equipe de front-end (ver [[plano-de-acao]]) |
+| Interface | Identidade visual, tipografia e acabamento das telas, feitos pela equipe de front-end (ver [[decisions#ADR-13 Divisão do trabalho por frente\|ADR-13]]) |
 
 ## O que fica de fora
 

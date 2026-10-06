@@ -23,9 +23,9 @@ Print/erro: [cola aqui]
 
 | Assunto | Responsável |
 |---------|-------------|
-| Front-end | <!-- DEFINIR --> |
-| Back-end | <!-- DEFINIR --> |
-| Banco de dados | <!-- DEFINIR --> |
+| Front-end | Eduardo (líder) e Sergio |
+| Back-end | Geovane (líder) e Joel |
+| Banco de dados | Lucas Amaro (líder), Lucas Soares e Felipe |
 | Git e GitHub | <!-- DEFINIR --> |
 | Dúvidas sobre o negócio / a empresa | <!-- DEFINIR --> |
 

@@ -18,7 +18,7 @@ flowchart LR
 
 As etapas 3 e 4 podem andar ao mesmo tempo, assim como 6, 7, 8 e 9.
 
-Cada etapa tem uma frente responsável (banco de dados, backend ou front-end). A divisão e a ordem das fases estão no [[plano-de-acao]].
+Cada etapa tem uma frente responsável (banco de dados, backend ou front-end). A divisão e a ordem das fases estão no [[decisions#ADR-13 Divisão do trabalho por frente|ADR-13]].
 
 ## Quadro
 

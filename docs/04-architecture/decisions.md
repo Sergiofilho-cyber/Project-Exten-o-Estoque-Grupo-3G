@@ -72,13 +72,18 @@ Cada decisão registra o contexto, o que foi escolhido e o que isso custa. Decis
 - **Custo**: `frontend/` também contém as poucas rotas de servidor (por exemplo, a de recebimento de documentos, T8.1). Os comandos `npm` rodam dentro de `frontend/`.
 
 ## ADR-13 Divisão do trabalho por frente
-- **Contexto**: a equipe tem 7 integrantes divididos em três frentes: coordenação e backend (3), banco de dados (3) e front-end (2). O banco já está especificado em [[banco-de-dados]] e na migração inicial. Complementa o [[#ADR-12 Repositório dividido em frontend e backend|ADR-12]].
+- **Contexto**: a equipe tem 7 integrantes divididos em três frentes, cada uma com um líder mais experiente na área: backend (2), banco de dados (3) e front-end (2). O banco já está especificado em [[banco-de-dados]] e na migração inicial. Complementa o [[#ADR-12 Repositório dividido em frontend e backend|ADR-12]].
 - **Decisão**:
-  - **Banco de dados** cuida de `backend/supabase/`: constrói o banco no Supabase usando a documentação e a migração inicial como especificação, cria dados de teste, gera os tipos e escreve as migrações seguintes.
-  - **Backend** cuida da parte de servidor em `frontend/`: `lib/` (acesso ao Supabase), `proxy.ts` (sessão e proteção de rotas) e `app/api/` (rotas de servidor). Também testa o banco entregue e estrutura os testes de integração.
-  - **Front-end** cuida das telas e componentes em `frontend/app/` e `frontend/components/`, incluindo as telas funcionais e o acabamento visual.
+
+| Frente | Integrantes | Cuida de |
+|---|---|---|
+| Backend | Antonio Geovane Porto Camelo (líder) e Joel Caleb Coelho dos Santos | Parte de servidor em `frontend/`: `lib/` (acesso ao Supabase), `proxy.ts` (sessão e proteção de rotas) e `app/api/` (rotas de servidor). Escreve a especificação do banco para a frente de banco, testa o banco entregue e estrutura os testes de implementação e de uso inicial |
+| Banco de dados | Lucas Amaro Oliveira (líder), Lucas Soares Saraiva e Felipe Cauã Pereira Ladislau Costa | `backend/supabase/`: constrói o banco no Supabase a partir da especificação (documentação e migração inicial), cria dados de teste, gera os tipos e escreve as migrações seguintes |
+| Front-end | Eduardo Martins da Silva do Carmo (líder) e Antonio Sergio Freitas Rodrigues Filho | Telas e componentes em `frontend/app/` e `frontend/components/`, incluindo as telas funcionais, a identidade visual e a tipografia |
+
+- **Ordem das fases**: (1) o backend estrutura a base do aplicativo e especifica o banco; (2) a frente de banco constrói o banco; (3) o backend testa o banco e estrutura os testes de implementação e de uso inicial; (4) o front-end constrói as telas e aplica o design. O plano de ação entregue à faculdade descreve as mesmas fases.
 - **Ganho**: cada frente sabe onde mexer e quem revisa cada parte.
-- **Custo**: as frentes dependem umas das outras (o banco precisa estar pronto antes da integração). A ordem das fases está em [[plano-de-acao]].
+- **Custo**: as frentes dependem umas das outras (o banco precisa estar pronto antes da integração).
 
 ## Pendentes
 

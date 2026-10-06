@@ -16,7 +16,7 @@ Antes de alterar qualquer arquivo, leia `docs/README.md` e siga a ordem de leitu
 - A referência de um item é sempre o código da variante, nunca o nome (ADR-07).
 - Mudança no banco é um arquivo novo em `backend/supabase/migrations/`. Não edite a migração inicial.
 - Não invente funcionalidade. Se uma regra não estiver em `docs/`, pare e pergunte.
-- Toda tela precisa funcionar em celular (360 px). Telas e acabamento visual são da frente de front-end; a divisão por frente está em `docs/04-architecture/decisions.md` (ADR-13) e no plano de ação (`docs/00-context/plano-de-acao.md`).
+- Toda tela precisa funcionar em celular (360 px). Telas e acabamento visual são da frente de front-end; a divisão por frente está em `docs/04-architecture/decisions.md` (ADR-13).
 - Trabalhe uma etapa por vez, na ordem de `docs/03-specifications/roteiro.md`. Ao terminar uma tarefa, marque a caixa no arquivo da etapa e atualize a documentação afetada.
 - Antes de dizer que terminou, rode `npm run lint` e `npx tsc --noEmit` dentro de `frontend/` e mostre o resultado.
 - Nenhuma chave ou senha em arquivo do repositório. Segredos ficam em `frontend/.env.local`.

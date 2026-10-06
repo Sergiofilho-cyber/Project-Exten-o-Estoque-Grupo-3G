@@ -2,7 +2,7 @@
 
 Objetivo: sair do zero até o sistema rodando na sua máquina em uns 10 minutos.
 
-> ⚠️ Os comandos marcados com `<!-- DEFINIR -->` dependem da stack, que ainda está sendo decidida. Esta página será atualizada quando isso acontecer.
+> O passo a passo oficial, com a lista de variáveis e como montar um banco do zero, está em [`docs/05-guides/ambiente.md`](../docs/05-guides/ambiente.md). Este guia é o resumo prático.
 
 ## 1. Contas
 
@@ -13,11 +13,13 @@ Objetivo: sair do zero até o sistema rodando na sua máquina em uns 10 minutos.
 ## 2. Ferramentas
 
 - [ ] **Git** — https://git-scm.com/downloads
-- [ ] **Docker Desktop** — https://www.docker.com/products/docker-desktop (roda o banco de dados sem precisar instalar nada na mão)
-- [ ] **Antigravity** — IDE baseada no VS Code, com Gemini integrado e gratuita para universitários. <!-- DEFINIR: link oficial e passo a passo da ativação com e-mail da faculdade -->
-- [ ] <!-- DEFINIR: runtime da stack (Node, Python, etc.) e versão -->
+- [ ] **Node.js 20 ou mais recente** — https://nodejs.org
+- [ ] **Um editor de código.** Recomendado: **Antigravity**, IDE baseada no VS Code, com Gemini integrado e gratuita para universitários
+- [ ] **Obsidian** (opcional), para ler a pasta `docs/` com os links navegáveis
 
-> O Antigravity é a IDE **recomendada**, mas não é obrigatória. As regras de formatação ficam no próprio repositório (`.editorconfig` e config do linter), então quem usar VS Code ou outra IDE segue o mesmo padrão.
+> O Antigravity é a IDE **recomendada**, mas não é obrigatória. As regras de formatação ficam no próprio repositório (config do linter), então quem usar VS Code ou outra IDE segue o mesmo padrão.
+
+Não é preciso instalar banco de dados: o projeto usa um Supabase de desenvolvimento, na nuvem, compartilhado pela equipe.
 
 ## 3. Configurar o Git (só na primeira vez)
 
@@ -31,34 +33,33 @@ Use o mesmo e-mail da conta do GitHub, senão seus commits não aparecem no seu 
 ## 4. Clonar o projeto
 
 ```bash
-git clone <!-- DEFINIR: URL do repositório -->
-cd <!-- DEFINIR: nome da pasta -->
+git clone https://github.com/Tyonh/Project-Exten-o-Estoque-Grupo-3G.git
+cd Project-Exten-o-Estoque-Grupo-3G
 ```
 
-## 5. Variáveis de ambiente
+## 5. Instalar e configurar o aplicativo
+
+O aplicativo fica em `frontend/`. Todos os comandos `npm` e `npx` rodam dentro dessa pasta.
 
 ```bash
-cp .env.example .env
+cd frontend
+npm install
+cp .env.example .env.local
 ```
 
-Peça os valores que faltarem no grupo da equipe. Nunca commite o `.env`.
+Preencha o `.env.local` com os valores que o responsável pelo projeto passar por mensagem privada. Nunca commite o `.env.local`.
 
-## 6. Subir o banco
+## 6. Rodar
 
 ```bash
-docker compose up -d
+npm run dev
 ```
 
-## 7. Rodar o back e o front
-
-```bash
-# <!-- DEFINIR: comandos de instalação de dependências e execução -->
-```
+Abra `http://localhost:3000`.
 
 ## ✅ Checklist final
 
-- [ ] Abri o front no navegador e a tela inicial apareceu
-- [ ] A API respondeu em <!-- DEFINIR: rota de teste -->
-- [ ] O Docker mostra o container do banco rodando
+- [ ] A tela de login abriu no navegador
+- [ ] `npm run lint` e `npx tsc --noEmit` rodam sem erros
 
 Se algum item falhar, vá direto pro guia [07 — Quando travar](07-quando-travar.md).

@@ -1,0 +1,10 @@
+# Segredos: nunca vão para o repositório
+.env*
+!.env.example
+
+# Configurações locais do Obsidian (cada pessoa tem as suas)
+.obsidian/workspace*.json
+
+# Sistema
+.DS_Store
+Thumbs.db

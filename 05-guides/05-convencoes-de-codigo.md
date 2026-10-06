@@ -1,35 +1,53 @@
 # 05 — Convenções de código
 
-> ⚠️ Este guia será completado quando a stack for definida.
+As regras oficiais estão em [`docs/00-context/tech-stack.md`](../docs/00-context/tech-stack.md) e [`docs/05-guides/contribuicao.md`](../docs/05-guides/contribuicao.md). Este guia resume.
 
 ## Idioma
 
+Tudo que é do negócio fica em **português**, com as palavras do [glossário](../docs/00-context/glossario.md). Se o glossário diz "variante", não escreva "produto" nem "item".
+
 | O quê | Idioma | Exemplo |
 |-------|--------|---------|
-| Código (variáveis, funções, arquivos) | Inglês | `productVariant`, `findByWarehouse()` |
-| Tabelas e colunas do banco | Inglês | `product_variants`, `color_temperature` |
+| Tabelas e colunas do banco | Português | `variantes`, `estoque_minimo` |
+| Variáveis e funções de negócio | Português | `saldoTotal`, `buscarVariantes()` |
 | Textos da interface | Português | "Cadastrar variante" |
 | Commits, PRs, issues e documentação | Português | `feat: adiciona filtro por galpão` |
 
-<!-- DEFINIR: a equipe pode optar por tudo em português. O importante é decidir uma vez e seguir. -->
+Nomes técnicos que vêm de bibliotecas (`useState`, `router`, `supabase`) continuam como são.
 
 ## Nomes
 
-<!-- DEFINIR conforme a stack. Sugestão base: -->
-
 | Tipo | Padrão | Exemplo |
 |------|--------|---------|
-| Variáveis e funções | camelCase | `totalStock`, `getVariants()` |
-| Componentes e classes | PascalCase | `ProductCard`, `WarehouseService` |
-| Tabelas e colunas | snake_case | `storage_locations`, `created_at` |
-| Constantes | UPPER_SNAKE_CASE | `MAX_UPLOAD_SIZE` |
+| Variáveis e funções | camelCase | `saldoTotal`, `buscarVariantes()` |
+| Componentes React | PascalCase | `CartaoVariante`, `ArvoreLocais` |
+| Tabelas e colunas | snake_case | `documentos_saida`, `local_origem_id` |
+| Constantes | UPPER_SNAKE_CASE | `TAMANHO_MAXIMO_IMAGEM` |
 
 ## Organização de pastas
 
-<!-- DEFINIR: estrutura interna de apps/web e apps/api -->
+| Pasta | O que vai lá |
+|-------|--------------|
+| `frontend/app/` | Telas (uma pasta por rota) e rotas de servidor (`app/api/`) |
+| `frontend/components/` | Componentes reaproveitados por mais de uma tela |
+| `frontend/lib/` | Acesso ao Supabase e funções utilitárias |
+| `backend/supabase/migrations/` | Mudanças no banco, um arquivo novo por mudança |
+
+## Regras que não podem ser quebradas
+
+- TypeScript em tudo. Arquivos `.js` não são aceitos.
+- Uma tela não passa de cerca de 300 linhas. Acima disso, divida em componentes.
+- **Nenhuma tela ou rota soma ou subtrai saldo.** Estoque só muda pelas funções do banco (`registrar_movimentacao`, `confirmar_saida_documento`, `abrir_inventario`, `concluir_inventario`).
+- **Quem fez a ação vem da sessão**, nunca de um campo enviado pela tela.
+- Nenhuma chave ou senha no código.
 
 ## O que o linter resolve sozinho
 
-Formatação (espaços, aspas, ponto e vírgula, quebras de linha) é responsabilidade do linter/formatter configurado no repositório. Não precisa se preocupar com isso manualmente, só salvar o arquivo com a formatação automática ligada na IDE.
+O projeto usa **ESLint** (configuração em `frontend/eslint.config.mjs`). Antes de abrir uma PR, dentro de `frontend/`:
 
-<!-- DEFINIR: ferramentas (ex.: ESLint + Prettier) e como ativar "formatar ao salvar" no Antigravity -->
+```bash
+npm run lint
+npx tsc --noEmit
+```
+
+Os dois precisam passar sem erros.

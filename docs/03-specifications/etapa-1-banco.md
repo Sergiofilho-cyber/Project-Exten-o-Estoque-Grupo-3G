@@ -1,7 +1,7 @@
 # Etapa 1 — Banco de dados
 
 ## Objetivo
-Criar toda a estrutura do banco a partir do arquivo de migração.
+Criar toda a estrutura do banco a partir da especificação em [[banco-de-dados]].
 
 ## Por que esta etapa existe
 Todas as outras etapas guardam e leem dados daqui. As regras de estoque moram no banco.
@@ -14,7 +14,7 @@ Base para todos; atende diretamente RNF-01, RNF-02, RNF-03 e RNF-04.
 
 ## Tarefas
 
-- [ ] **T1.1** Aplicar `backend/supabase/migrations/20261005000000_schema_inicial.sql` no Supabase de desenvolvimento  
+- [ ] **T1.1** Escrever a migração inicial em `backend/supabase/migrations/`, a partir de [[banco-de-dados]], e aplicá-la no Supabase de desenvolvimento  
   Responsável: a definir
 - [ ] **T1.2** Criar dados de teste em `backend/supabase/seed.sql`: 2 categorias, 3 famílias, 8 variantes, uma árvore de 6 locais  
   Responsável: a definir

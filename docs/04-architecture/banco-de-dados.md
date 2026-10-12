@@ -1,6 +1,6 @@
 # Banco de dados
 
-A estrutura completa está em `backend/supabase/migrations/20261005000000_schema_inicial.sql`. Este documento explica o que cada parte faz e por quê. As regras de negócio por trás estão em [[domain-model]].
+Este documento é a especificação do banco: diz o que cada parte precisa fazer e por quê. A partir dele, a frente de banco de dados escreve as migrações (o SQL) em `backend/supabase/migrations/` e monta o banco no Supabase. As regras de negócio por trás estão em [[domain-model]].
 
 ## Visão das tabelas
 
@@ -112,7 +112,7 @@ A função trava o documento, confere que ele está pendente, confere que o tota
 
 ## Proteções garantidas pelo banco
 
-Todas foram testadas em um PostgreSQL local antes de a migração entrar no repositório.
+São o critério de aceite do banco: cada linha precisa ser testada no Supabase de desenvolvimento antes de o banco ser entregue.
 
 | Situação | Resultado |
 |---|---|

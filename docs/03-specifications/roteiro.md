@@ -25,7 +25,7 @@ Cada etapa tem uma frente responsável (banco de dados, backend ou front-end). A
 | Etapa | Entrega | Situação |
 |---|---|---|
 | [[etapa-0-preparacao\|Etapa 0 — Preparação]] | Deixar todo mundo com o projeto rodando no próprio computador, no mesmo repositório e no mesmo banco de desenvolvimento. | Em execução |
-| [[etapa-1-banco\|Etapa 1 — Banco de dados]] | Criar toda a estrutura do banco a partir do arquivo de migração. | A fazer |
+| [[etapa-1-banco\|Etapa 1 — Banco de dados]] | Criar toda a estrutura do banco a partir da especificação em `banco-de-dados`. | A fazer |
 | [[etapa-2-acesso\|Etapa 2 — Acesso]] | Login, perfis e liberação de usuários. | A fazer |
 | [[etapa-3-catalogo\|Etapa 3 — Catálogo]] | Cadastro de categorias, famílias e variantes. | A fazer |
 | [[etapa-4-locais\|Etapa 4 — Locais]] | Cadastro da árvore de endereços. | A fazer |

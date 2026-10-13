@@ -16,7 +16,7 @@ RF-20, RF-21, RF-22.
 
 ### Backend
 
-- [ ] **T7.6** Funções de inventário em `lib/inventarios.ts`: abrir (`abrirInventario`), listar itens, gravar a quantidade contada, incluir item, resumo das diferenças, concluir (`concluirInventario`) e cancelar (`cancelarInventario`)  
+- [ ] **T7.6** Funções de inventário em `backend/src/inventarios.ts`: abrir (`abrirInventario`), listar itens, gravar a quantidade contada, incluir item, resumo das diferenças, concluir (`concluirInventario`) e cancelar (`cancelarInventario`)  
   Responsável: a definir
 
 ### Front-end

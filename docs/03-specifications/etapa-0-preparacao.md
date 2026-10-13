@@ -33,7 +33,7 @@ Nenhum requisito do [[PRD]] diretamente; atende [[PRD#Requisitos não funcionais
 ## Pronto quando (Definition of Done)
 
 - [ ] Todos os integrantes abrem a tela de login no próprio computador
-- [ ] `npm run lint` e `npx tsc --noEmit` passam sem erros
+- [ ] `npm run lint` e `npm run typecheck` passam sem erros
 - [ ] Uma busca por chaves no repositório não encontra nenhuma
 - [ ] Lint e verificação de tipos sem erros
 - [ ] Documentação atualizada no mesmo pull request

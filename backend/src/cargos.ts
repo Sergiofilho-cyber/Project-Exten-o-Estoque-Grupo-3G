@@ -1,8 +1,8 @@
 // Cargos e grupos de permissão, iguais aos do banco
 // (docs/06-security/security-model.md).
 //
-// Estas funções servem para a tela decidir o que mostrar. A proteção de
-// verdade está no banco: esconder um botão é conforto, não segurança.
+// A tela usa estas funções para decidir o que mostrar. A proteção de verdade
+// é o backend conferir o perfil em cada função: esconder um botão é conforto.
 export const CARGOS = [
   "pendente",
   "estoquista",

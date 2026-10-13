@@ -12,3 +12,8 @@ Thumbs.db
 # Rascunho local da migração inicial. O banco é estruturado pela frente de
 # banco de dados a partir de docs/04-architecture/banco-de-dados.md.
 backend/supabase/migrations/20261005000000_schema_inicial.sql
+
+# Dependências e arquivos gerados
+node_modules/
+.next/
+*.tsbuildinfo

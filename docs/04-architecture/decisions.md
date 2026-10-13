@@ -48,7 +48,7 @@ Cada decisão registra o contexto, o que foi escolhido e o que isso custa. Decis
 - **Contexto**: era preciso definir quem confirma a saída de mercadoria.
 - **Decisão**: toda saída, avulsa ou por documento, é confirmada pelo perfil Gerente de Estoque. O Estoquista só consulta.
 - **Ganho**: um único responsável por tudo que sai.
-- **Custo**: o gerente de estoque vira ponto único da operação. As permissões estão concentradas em um único lugar (desde o [[#ADR-15 Regras no backend e banco simples|ADR-15]], a função `podeOperar` de `frontend/lib/cargos.ts`), então mudar a regra depois é uma alteração pequena.
+- **Custo**: o gerente de estoque vira ponto único da operação. As permissões estão concentradas em um único lugar (desde o [[#ADR-15 Regras no backend e banco simples|ADR-15]], a função `podeOperar` de `backend/src/cargos.ts`), então mudar a regra depois é uma alteração pequena.
 
 ## ADR-09 Uma empresa por instalação
 - **Contexto**: o sistema deve servir a outras empresas, mas isolar várias empresas no mesmo banco afeta todas as tabelas e regras.
@@ -68,9 +68,10 @@ Cada decisão registra o contexto, o que foi escolhido e o que isso custa. Decis
 
 ## ADR-12 Repositório dividido em frontend e backend
 - **Contexto**: a equipe entende melhor o projeto quando cada parte tem sua pasta, mas o Next.js junta telas e rotas de servidor no mesmo projeto, e as regras ficam em funções de servidor dentro do próprio aplicativo ([[#ADR-15 Regras no backend e banco simples|ADR-15]]).
-- **Decisão**: `frontend/` guarda o aplicativo Next.js inteiro; `backend/supabase/` guarda as migrações e os dados de teste do banco. Não existe servidor de API separado.
+- **Decisão**: `frontend/` guarda as telas e a estrutura do aplicativo Next.js; `backend/src/` guarda o código do backend, que o aplicativo importa como um pacote (`@estoque/backend`); `backend/supabase/` guarda as migrações e os dados de teste do banco. Não existe servidor de API separado: é um aplicativo só.
 - **Ganho**: cada pessoa sabe onde mexer, sem mudar a arquitetura.
-- **Custo**: o código da frente de backend (`lib/`, `proxy.ts` e `app/api/`) fica dentro de `frontend/`, apesar do nome da pasta, porque faz parte do mesmo aplicativo Next.js. Os comandos `npm` rodam dentro de `frontend/`.
+- **Custo**: `proxy.ts` e `app/api/`, da frente de backend, continuam em `frontend/` porque o Next.js só as reconhece ali. O projeto passa a ser um conjunto de pacotes npm (workspaces), com os comandos `npm` rodando na raiz.
+- **Situação**: a primeira versão deixava o backend em `backend/src/`. Foi movido para `backend/src/` para as pastas corresponderem ao conteúdo.
 
 ## ADR-13 Divisão do trabalho por frente
 - **Contexto**: a equipe tem 7 integrantes divididos em três frentes, cada uma com um líder mais experiente na área: backend (2), banco de dados (3) e front-end (2). A frente de backend, a mais experiente, fica com a parte mais complexa; a de banco, com a mais simples. Complementa o [[#ADR-12 Repositório dividido em frontend e backend|ADR-12]].
@@ -78,7 +79,7 @@ Cada decisão registra o contexto, o que foi escolhido e o que isso custa. Decis
 
 | Frente | Integrantes | Cuida de |
 |---|---|---|
-| Backend | Antonio Geovane Porto Camelo (líder) e Joel Caleb Coelho dos Santos | Todas as regras e operações do sistema ([[backend]]): as funções de `frontend/lib/`, a conexão com o banco, a conferência de perfil, `proxy.ts` (sessão e proteção de rotas) e `app/api/` (rotas para outros sistemas). Escreve a especificação do banco, valida o banco entregue e testa as regras |
+| Backend | Antonio Geovane Porto Camelo (líder) e Joel Caleb Coelho dos Santos | Todas as regras e operações do sistema ([[backend]]): as funções de `backend/src/`, a conexão com o banco, a conferência de perfil, `proxy.ts` (sessão e proteção de rotas) e `app/api/` (rotas para outros sistemas). Escreve a especificação do banco, valida o banco entregue e testa as regras |
 | Banco de dados | Lucas Amaro Oliveira (líder), Lucas Soares Saraiva e Felipe Cauã Pereira Ladislau Costa | `backend/supabase/`: cria as tabelas, as restrições e os índices da especificação em [[banco-de-dados]], ativa a segurança por linha, cria os dados de teste e testa o que o banco precisa recusar. Não escreve funções, gatilhos nem regras por perfil |
 | Front-end | Eduardo Martins da Silva do Carmo (líder) e Antonio Sergio Freitas Rodrigues Filho | Telas e componentes em `frontend/app/` e `frontend/components/`, incluindo as telas funcionais, a identidade visual e a tipografia |
 
@@ -88,7 +89,7 @@ Cada decisão registra o contexto, o que foi escolhido e o que isso custa. Decis
 
 ## ADR-14 Telas acessam os dados pelas funções de lib
 - **Contexto**: com uma frente de backend e outra de front-end no mesmo aplicativo Next.js, era preciso definir onde termina o trabalho de uma e começa o da outra. Se cada tela escrevesse a própria consulta ao banco, as regras ficariam espalhadas e as duas frentes mexeriam nos mesmos arquivos.
-- **Decisão**: as telas só chamam as funções de `frontend/lib/`, que rodam no servidor. Há um arquivo por assunto (`sessao.ts`, `catalogo.ts`, `locais.ts`...), escrito pela frente de backend. As telas nunca falam com o banco nem importam nada de `frontend/lib/servidor/`. Toda função devolve `{ ok: true, dados }` ou `{ ok: false, erro }`, com a mensagem de erro em português, pronta para a tela mostrar.
+- **Decisão**: as telas só chamam as funções de `backend/src/`, que rodam no servidor. Há um arquivo por assunto (`sessao.ts`, `catalogo.ts`, `locais.ts`...), escrito pela frente de backend. As telas nunca falam com o banco nem importam nada de `backend/src/servidor/`. Toda função devolve `{ ok: true, dados }` ou `{ ok: false, erro }`, com a mensagem de erro em português, pronta para a tela mostrar.
 - **Ganho**: fronteira clara entre as frentes; nomes de tabelas e colunas ficam em um lugar só; a mensagem de erro chega à tela sempre do mesmo jeito.
 - **Custo**: o front-end depende de o backend entregar as funções antes. Atenuado com o backend trabalhando uma etapa à frente ([[roteiro#Trabalho por frente]]).
 

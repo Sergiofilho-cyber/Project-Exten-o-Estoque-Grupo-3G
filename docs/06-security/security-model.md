@@ -29,7 +29,7 @@ A permissão é verificada em **três lugares**:
 2. **No backend**: toda função confere a sessão e o perfil antes de ler ou gravar qualquer coisa. Esta é a proteção de verdade: vale mesmo que alguém contorne a tela, porque a tela não tem outro caminho até os dados ([[backend#Permissões]]).
 3. **No banco**: a segurança por linha fica ativada sem nenhuma política. Quem tentar acessar as tabelas direto com a chave pública do Supabase não lê nem grava nada ([[banco-de-dados#Acesso]]).
 
-As permissões estão concentradas em três funções de `frontend/lib/cargos.ts`. Mudar quem pode o quê é alterar uma delas:
+As permissões estão concentradas em três funções de `backend/src/cargos.ts`. Mudar quem pode o quê é alterar uma delas:
 
 | Função | Verdadeira para |
 |---|---|

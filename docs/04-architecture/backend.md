@@ -6,7 +6,7 @@ Este documento descreve como o servidor aplica as regras do sistema. É o trabal
 
 ```
 Tela (navegador)
-   |  chama uma função de frontend/lib/
+   |  chama uma função de backend/src/
    v
 Função do backend (roda no servidor do Next.js)
    |  1. confere a sessão e o perfil
@@ -25,14 +25,16 @@ Banco PostgreSQL (Supabase)
 
 | Lugar | O que tem | Quem usa |
 |---|---|---|
-| `frontend/lib/<assunto>.ts` | As funções que as telas chamam, uma por operação ou consulta: `sessao.ts`, `usuarios.ts`, `catalogo.ts`, `locais.ts`, `movimentacoes.ts`, `consulta.ts`, `inventarios.ts`, `documentos.ts`. Rodam no servidor | Telas |
-| `frontend/lib/servidor/` | Código interno do servidor: a conexão com o banco, a conferência de sessão e perfil e as regras usadas por mais de uma função | Só as funções de `lib/` |
-| `frontend/lib/resultado.ts` | O formato de resposta das funções | Telas e backend |
-| `frontend/lib/cargos.ts` | Os perfis e os grupos de permissão | Telas e backend |
+| `backend/src/<assunto>.ts` | As funções que as telas chamam, uma por operação ou consulta: `sessao.ts`, `usuarios.ts`, `catalogo.ts`, `locais.ts`, `movimentacoes.ts`, `consulta.ts`, `inventarios.ts`, `documentos.ts`. Rodam no servidor | Telas |
+| `backend/src/servidor/` | Código interno do servidor: a conexão com o banco, a conferência de sessão e perfil e as regras usadas por mais de uma função | Só as funções de `backend/src/` |
+| `backend/src/resultado.ts` | O formato de resposta das funções | Telas e backend |
+| `backend/src/cargos.ts` | Os perfis e os grupos de permissão | Telas e backend |
 | `frontend/proxy.ts` | Proteção de rotas: sem sessão, volta para o login | Next.js |
 | `frontend/app/api/` | Rotas chamadas por outros sistemas, como o recebimento de documentos de saída | Sistemas externos |
 
-Uma tela nunca importa nada de `frontend/lib/servidor/` nem o cliente do banco.
+Uma tela nunca importa nada de `backend/src/servidor/` nem o cliente do banco.
+
+O `proxy.ts` e as rotas de `app/api/` ficam em `frontend/` porque o Next.js só as reconhece dentro da pasta do aplicativo. Mesmo assim são da frente de backend: devem ser finas e apenas chamar as funções de `backend/src/`.
 
 ## Formato de resposta
 
@@ -55,7 +57,7 @@ Toda função começa conferindo quem está chamando. O perfil vem da sessão, n
 | Operação | gerente de estoque, admin | Cadastrar e editar catálogo e locais, movimentar estoque, fazer inventário e dar baixa em documentos |
 | Admin | admin | Alterar o perfil de outros usuários |
 
-O perfil `pendente` e quem não tem sessão não leem nem gravam nada, exceto o próprio perfil. A tabela completa por ação está em [[security-model]]. Os grupos ficam em `frontend/lib/cargos.ts`: mudar quem pode o quê é alterar esse arquivo.
+O perfil `pendente` e quem não tem sessão não leem nem gravam nada, exceto o próprio perfil. A tabela completa por ação está em [[security-model]]. Os grupos ficam em `backend/src/cargos.ts`: mudar quem pode o quê é alterar esse arquivo.
 
 ## Como uma operação de estoque acontece
 

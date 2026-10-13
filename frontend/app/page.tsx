@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { podeConsultar } from "@/lib/cargos";
-import { buscarPerfilAtual, sair, type Perfil } from "@/lib/sessao";
+import { podeConsultar } from "@estoque/backend/cargos";
+import { buscarPerfilAtual, sair } from "@estoque/backend/sessao";
+import type { Perfil } from "@estoque/backend/tipos";
 
 // Página inicial provisória, sem acabamento visual. O painel com totais é a
 // tarefa T6.5 (docs/03-specifications/etapa-6-consulta.md).

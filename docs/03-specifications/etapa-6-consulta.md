@@ -16,7 +16,7 @@ RF-17, RF-18, RF-19, RNF-05, RNF-06.
 
 ### Backend
 
-- [ ] **T6.6** Funções de consulta em `lib/consulta.ts`: busca de variantes, saldo total e por local de uma variante, conteúdo de um local, estoque por variante com os itens críticos e totais do painel  
+- [ ] **T6.6** Funções de consulta em `backend/src/consulta.ts`: busca de variantes, saldo total e por local de uma variante, conteúdo de um local, estoque por variante com os itens críticos e totais do painel  
   Responsável: a definir
 
 ### Front-end

@@ -17,7 +17,7 @@ Não pegue mais de 2 tarefas ao mesmo tempo. Termine uma antes de começar outra
 Uma tarefa só está pronta quando:
 
 - [ ] Roda sem erro na máquina de quem fez
-- [ ] `npm run lint` e `npx tsc --noEmit` passam sem erros
+- [ ] `npm run lint` e `npm run typecheck` passam sem erros
 - [ ] PR aberta com o template preenchido
 - [ ] Documentação atualizada no mesmo PR
 - [ ] Aprovada no review e com merge feito

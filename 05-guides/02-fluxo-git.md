@@ -20,11 +20,9 @@ git checkout -b etapa3/t3-3-tela-variantes
 git add .
 git commit -m "feat: cria formulário de cadastro de variantes"
 
-# 4. Antes de enviar, confira lint e tipos (dentro de frontend/)
-cd frontend
+# 4. Antes de enviar, confira lint e tipos (na raiz)
 npm run lint
-npx tsc --noEmit
-cd ..
+npm run typecheck
 
 # 5. Envie sua branch pro GitHub
 git push -u origin etapa3/t3-3-tela-variantes

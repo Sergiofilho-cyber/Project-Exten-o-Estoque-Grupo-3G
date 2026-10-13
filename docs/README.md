@@ -14,7 +14,8 @@ Leia nesta ordem. Os quatro primeiros não exigem conhecimento de programação.
 4. [[PRD]]: o que cada pessoa consegue fazer no sistema.
 5. [[domain-model]]: as regras de negócio.
 6. [[banco-de-dados]]: como a informação é guardada.
-7. [[roteiro]]: as etapas de construção, na ordem.
+7. [[backend]]: como o servidor aplica as regras.
+8. [[roteiro]]: as etapas de construção, na ordem.
 
 ## Mapa das pastas
 
@@ -24,7 +25,7 @@ Leia nesta ordem. Os quatro primeiros não exigem conhecimento de programação.
 | `01-product` | Requisitos: o que o sistema precisa fazer |
 | `02-domain` | Regras de negócio e entidades |
 | `03-specifications` | Roteiro e etapas de construção, com tarefas |
-| `04-architecture` | Banco de dados e decisões técnicas |
+| `04-architecture` | Banco de dados, backend e decisões técnicas |
 | `06-security` | Quem pode fazer o quê |
 | `08-observability` | Como acompanhar erros e auditoria |
 

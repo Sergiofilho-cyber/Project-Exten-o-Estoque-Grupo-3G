@@ -9,12 +9,14 @@ Sistema web que responde duas perguntas: **o que temos e quanto?** e **onde est�
 | [`docs/`](docs/README.md) | A documentação do projeto. **É a fonte da verdade**: se o código disser outra coisa, o código está errado | Todos |
 | [`05-guides/`](05-guides/Inicio.md) | Guias práticos da equipe: setup, Git, uso de IA, como pegar tarefas | Todos |
 | `frontend/app/`, `frontend/components/` | As telas e os componentes do aplicativo Next.js | Frente de front-end |
-| `frontend/lib/`, `frontend/proxy.ts`, `frontend/app/api/` | Funções de acesso aos dados, sessão e rotas de servidor | Frente de backend |
-| `backend/supabase/` | O banco: migrações, dados de teste e as funções SQL onde moram as regras de estoque | Frente de banco de dados |
+| `frontend/lib/`, `frontend/proxy.ts`, `frontend/app/api/` | O backend: todas as regras e operações do sistema, rodando no servidor | Frente de backend |
+| `backend/supabase/` | O banco: migrações e dados de teste | Frente de banco de dados |
 
-### Por que o "back-end" é o banco
+### Onde ficam as regras
 
-As regras de estoque (somar e subtrair saldo, impedir saída maior que o saldo, impedir baixa repetida, conferir permissões) ficam **dentro do banco**, em funções do Supabase. Assim elas valem para qualquer tela, mesmo que uma tela tenha um defeito. O Next.js junta telas e rotas de servidor no mesmo projeto, então não existe um servidor de API separado. As telas não consultam o banco direto: chamam as funções de `frontend/lib/`, escritas pelo backend. Detalhes em [`docs/04-architecture/decisions.md`](docs/04-architecture/decisions.md) (ADR-03, ADR-12, ADR-13 e ADR-14).
+As regras do sistema (somar e subtrair saldo, impedir saída maior que o saldo, impedir baixa repetida, conferir permissões) ficam no **backend**, em funções que rodam no servidor do aplicativo Next.js. As telas só chamam essas funções e nunca falam com o banco. O **banco** é simples de propósito: guarda os dados e recusa valores inválidos.
+
+O código do backend fica dentro de `frontend/` porque faz parte do mesmo aplicativo Next.js; a pasta `backend/` guarda só o banco. Detalhes em [`docs/04-architecture/backend.md`](docs/04-architecture/backend.md) e em [`docs/04-architecture/decisions.md`](docs/04-architecture/decisions.md) (ADR-12 a ADR-15).
 
 ## Por onde começar
 

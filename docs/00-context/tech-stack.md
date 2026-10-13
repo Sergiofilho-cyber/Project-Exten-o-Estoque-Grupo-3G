@@ -4,40 +4,43 @@
 
 | Tecnologia | Papel | Por que foi escolhida |
 |---|---|---|
-| **Next.js 16** | Estrutura do aplicativo web | Telas e rotas de servidor no mesmo projeto, sem precisar de um back-end separado |
+| **Next.js 16** | Estrutura do aplicativo web | Telas e funções de servidor no mesmo projeto, sem precisar de um servidor de API separado |
 | **React 19** | Construção das telas | Padrão de mercado; vem com o Next.js |
 | **TypeScript** (modo estrito) | Linguagem | Aponta erros antes de o código rodar, o que ajuda quem está começando |
 | **Tailwind CSS 4** | Estilo | Layout responsivo sem escrever arquivos de CSS |
 | **Supabase** | Banco de dados, login e arquivos | Entrega PostgreSQL, autenticação e armazenamento de imagens prontos |
-| **PostgreSQL** | Banco de dados | Relacional, com transações e regras de segurança por linha |
+| **PostgreSQL** | Banco de dados | Relacional, com transações e trava de linha |
+| **postgres** (biblioteca) | Conexão do servidor com o banco | Permite ao backend fazer várias gravações em uma única transação |
 | **lucide-react** | Ícones | Leve e consistente |
 
 ## Como as partes conversam
 
 ```
-Navegador (celular ou computador)
+Navegador (celular ou computador)  -- telas
         |
         v
-Aplicativo Next.js  -- telas e rotas de servidor
+Servidor do Next.js  -- funções do backend: conferem o perfil e aplicam as regras
         |
         v
 Supabase  -- login, banco PostgreSQL, imagens
 ```
 
 - O login é feito pelo Supabase e a sessão fica em cookie.
-- As telas chamam as funções de `frontend/lib/`, que leem e gravam no Supabase. O banco decide o que cada perfil pode ver (ver [[security-model]] e [[decisions#ADR-14 Telas acessam os dados pelas funções de lib|ADR-14]]).
-- Toda alteração de estoque passa por funções dentro do banco (ver [[banco-de-dados]]). O aplicativo nunca calcula saldo.
+- As telas chamam as funções de `frontend/lib/`, que rodam no servidor. O navegador nunca fala com o banco (ver [[decisions#ADR-14 Telas acessam os dados pelas funções de lib|ADR-14]]).
+- O backend confere o perfil de quem chama e aplica todas as regras, em transação (ver [[backend]] e [[security-model]]). Nenhuma tela calcula saldo.
+- O banco guarda os dados e recusa valores inválidos (ver [[banco-de-dados]]).
 
 ## Onde fica cada parte no repositório
 
 | Pasta | Conteúdo |
 |---|---|
-| `frontend/` | O aplicativo Next.js: telas, controle de sessão e as rotas de servidor que existirem |
-| `backend/supabase/` | O banco: migrações, dados de teste e as funções SQL onde moram as regras de estoque |
+| `frontend/app/`, `frontend/components/` | As telas e os componentes. Frente de front-end |
+| `frontend/lib/`, `frontend/proxy.ts`, `frontend/app/api/` | As funções do backend, a sessão e as rotas para outros sistemas. Frente de backend |
+| `backend/supabase/` | O banco: migrações e dados de teste. Frente de banco de dados |
 | `docs/` | Esta documentação, a fonte da verdade |
 | `05-guides/` | Guias práticos da equipe |
 
-O "back-end" deste projeto é o banco. As regras de estoque ficam nas funções do Supabase (ver [[decisions#ADR-03 Regras de estoque dentro do banco|ADR-03]]), e o Next.js reúne telas e rotas de servidor no mesmo projeto, sem um servidor de API separado. Ver [[decisions#ADR-12 Repositório dividido em frontend e backend|ADR-12]].
+As regras do sistema ficam no backend, em funções que rodam no servidor do próprio aplicativo Next.js ([[decisions#ADR-15 Regras no backend e banco simples|ADR-15]]). Por isso o código da frente de backend fica dentro de `frontend/`, e a pasta `backend/` guarda só o banco. Ver [[decisions#ADR-12 Repositório dividido em frontend e backend|ADR-12]].
 
 ## Ambientes
 

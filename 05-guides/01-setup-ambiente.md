@@ -50,7 +50,8 @@ Preencha o `.env.local` com os valores que o responsável pelo projeto passar po
 | Variável | O que é |
 |---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | Endereço do projeto Supabase |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Chave pública |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Chave pública, usada no login |
+| `DATABASE_URL` | Conexão do servidor com o banco de desenvolvimento. Dá acesso total aos dados: trate como senha |
 
 ## 6. Rodar
 
@@ -72,7 +73,8 @@ Se algum item falhar, veja os problemas comuns abaixo e o guia [07 — Quando tr
 | Sintoma | Causa provável |
 |---|---|
 | Tela "aguardando liberação" após o login | Perfil ainda `pendente` |
-| "permission denied" ao movimentar | Seu perfil não é gerente de estoque nem admin |
+| "Seu perfil não tem permissão" ao movimentar | Seu perfil não é gerente de estoque nem admin |
+| Erro de conexão com o banco ao abrir qualquer tela | `DATABASE_URL` ausente ou errada no `.env.local` |
 | Listas vazias | Dados de teste não aplicados, ou perfil sem permissão de leitura |
 
 ## Montando um banco do zero

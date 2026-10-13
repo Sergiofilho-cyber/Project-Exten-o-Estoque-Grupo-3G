@@ -19,6 +19,7 @@ Cada decisão registra o contexto, o que foi escolhido e o que isso custa. Decis
 - **Decisão**: toda alteração de estoque passa por funções do banco, em transação, com trava na linha de saldo.
 - **Ganho**: as regras valem para qualquer tela ou integração; não existe operação pela metade.
 - **Custo**: parte da lógica fica em SQL, que menos gente da equipe domina. Atenuado com a documentação em [[banco-de-dados]].
+- **Situação**: substituída pelo [[#ADR-15 Regras no backend e banco simples|ADR-15]]. As regras continuam em transação e com trava no saldo, mas quem as executa é o backend.
 
 ## ADR-04 Saldo derivado do histórico
 - **Contexto**: um saldo digitável não explica como chegou àquele valor.
@@ -47,7 +48,7 @@ Cada decisão registra o contexto, o que foi escolhido e o que isso custa. Decis
 - **Contexto**: era preciso definir quem confirma a saída de mercadoria.
 - **Decisão**: toda saída, avulsa ou por documento, é confirmada pelo perfil Gerente de Estoque. O Estoquista só consulta.
 - **Ganho**: um único responsável por tudo que sai.
-- **Custo**: o gerente de estoque vira ponto único da operação. As permissões estão concentradas em uma função do banco (`pode_operar`), então mudar a regra depois é uma alteração pequena.
+- **Custo**: o gerente de estoque vira ponto único da operação. As permissões estão concentradas em um único lugar (desde o [[#ADR-15 Regras no backend e banco simples|ADR-15]], a função `podeOperar` de `frontend/lib/cargos.ts`), então mudar a regra depois é uma alteração pequena.
 
 ## ADR-09 Uma empresa por instalação
 - **Contexto**: o sistema deve servir a outras empresas, mas isolar várias empresas no mesmo banco afeta todas as tabelas e regras.
@@ -66,30 +67,39 @@ Cada decisão registra o contexto, o que foi escolhido e o que isso custa. Decis
 - **Custo**: sem rede, não há consulta nem baixa.
 
 ## ADR-12 Repositório dividido em frontend e backend
-- **Contexto**: a equipe entende melhor o projeto quando cada parte tem sua pasta, mas o Next.js junta telas e rotas de servidor no mesmo projeto, e as regras de estoque moram no banco ([[#ADR-03 Regras de estoque dentro do banco|ADR-03]]).
-- **Decisão**: `frontend/` guarda o aplicativo Next.js inteiro; `backend/supabase/` guarda migrações, dados de teste e funções SQL. Não existe servidor de API separado.
+- **Contexto**: a equipe entende melhor o projeto quando cada parte tem sua pasta, mas o Next.js junta telas e rotas de servidor no mesmo projeto, e as regras ficam em funções de servidor dentro do próprio aplicativo ([[#ADR-15 Regras no backend e banco simples|ADR-15]]).
+- **Decisão**: `frontend/` guarda o aplicativo Next.js inteiro; `backend/supabase/` guarda as migrações e os dados de teste do banco. Não existe servidor de API separado.
 - **Ganho**: cada pessoa sabe onde mexer, sem mudar a arquitetura.
-- **Custo**: `frontend/` também contém as poucas rotas de servidor (por exemplo, a de recebimento de documentos, T8.1). Os comandos `npm` rodam dentro de `frontend/`.
+- **Custo**: o código da frente de backend (`lib/`, `proxy.ts` e `app/api/`) fica dentro de `frontend/`, apesar do nome da pasta, porque faz parte do mesmo aplicativo Next.js. Os comandos `npm` rodam dentro de `frontend/`.
 
 ## ADR-13 Divisão do trabalho por frente
-- **Contexto**: a equipe tem 7 integrantes divididos em três frentes, cada uma com um líder mais experiente na área: backend (2), banco de dados (3) e front-end (2). O banco está especificado em [[banco-de-dados]]; o SQL é escrito pela frente de banco de dados. Complementa o [[#ADR-12 Repositório dividido em frontend e backend|ADR-12]].
+- **Contexto**: a equipe tem 7 integrantes divididos em três frentes, cada uma com um líder mais experiente na área: backend (2), banco de dados (3) e front-end (2). A frente de backend, a mais experiente, fica com a parte mais complexa; a de banco, com a mais simples. Complementa o [[#ADR-12 Repositório dividido em frontend e backend|ADR-12]].
 - **Decisão**:
 
 | Frente | Integrantes | Cuida de |
 |---|---|---|
-| Backend | Antonio Geovane Porto Camelo (líder) e Joel Caleb Coelho dos Santos | Parte de servidor em `frontend/`: `lib/` (funções de acesso aos dados, ver [[#ADR-14 Telas acessam os dados pelas funções de lib\|ADR-14]]), `proxy.ts` (sessão e proteção de rotas) e `app/api/` (rotas de servidor). Escreve a especificação do banco para a frente de banco, testa o banco entregue e estrutura os testes de implementação e de uso inicial |
-| Banco de dados | Lucas Amaro Oliveira (líder), Lucas Soares Saraiva e Felipe Cauã Pereira Ladislau Costa | `backend/supabase/`: escreve as migrações e constrói o banco no Supabase a partir da especificação em [[banco-de-dados]], cria dados de teste, gera os tipos e escreve as migrações seguintes |
+| Backend | Antonio Geovane Porto Camelo (líder) e Joel Caleb Coelho dos Santos | Todas as regras e operações do sistema ([[backend]]): as funções de `frontend/lib/`, a conexão com o banco, a conferência de perfil, `proxy.ts` (sessão e proteção de rotas) e `app/api/` (rotas para outros sistemas). Escreve a especificação do banco, valida o banco entregue e testa as regras |
+| Banco de dados | Lucas Amaro Oliveira (líder), Lucas Soares Saraiva e Felipe Cauã Pereira Ladislau Costa | `backend/supabase/`: cria as tabelas, as restrições e os índices da especificação em [[banco-de-dados]], ativa a segurança por linha, cria os dados de teste e testa o que o banco precisa recusar. Não escreve funções, gatilhos nem regras por perfil |
 | Front-end | Eduardo Martins da Silva do Carmo (líder) e Antonio Sergio Freitas Rodrigues Filho | Telas e componentes em `frontend/app/` e `frontend/components/`, incluindo as telas funcionais, a identidade visual e a tipografia |
 
-- **Ordem das fases**: (1) o backend estrutura a base do aplicativo e especifica o banco; (2) a frente de banco constrói o banco; (3) o backend testa o banco e estrutura os testes de implementação e de uso inicial; (4) o front-end constrói as telas e aplica o design. O plano de ação entregue à faculdade descreve as mesmas fases.
+- **Ordem das fases**: (1) o backend estrutura a base do aplicativo e especifica o banco; (2) a frente de banco constrói o banco; (3) o backend valida o banco, liga o servidor a ele e escreve as funções de cada etapa; (4) o front-end constrói as telas sobre essas funções e aplica o design. O plano de ação entregue à faculdade descreve as mesmas fases.
 - **Ganho**: cada frente sabe onde mexer e quem revisa cada parte.
 - **Custo**: as frentes dependem umas das outras (o banco precisa estar pronto antes da integração).
 
 ## ADR-14 Telas acessam os dados pelas funções de lib
-- **Contexto**: com uma frente de backend e outra de front-end no mesmo aplicativo Next.js, era preciso definir onde termina o trabalho de uma e começa o da outra. Se cada tela escrevesse a própria consulta ao Supabase, as regras ficariam espalhadas e as duas frentes mexeriam nos mesmos arquivos.
-- **Decisão**: só os arquivos de `frontend/lib/` falam com o Supabase. Há um arquivo por assunto (`sessao.ts`, `catalogo.ts`, `locais.ts`...), escrito pela frente de backend. As telas chamam essas funções e nunca importam o cliente do Supabase. Toda função devolve `{ ok: true, dados }` ou `{ ok: false, erro }`, com a mensagem de erro em português, pronta para a tela mostrar.
-- **Ganho**: fronteira clara entre as frentes; nomes de tabelas e colunas ficam em um lugar só; a mensagem de erro do banco chega à tela sempre do mesmo jeito.
+- **Contexto**: com uma frente de backend e outra de front-end no mesmo aplicativo Next.js, era preciso definir onde termina o trabalho de uma e começa o da outra. Se cada tela escrevesse a própria consulta ao banco, as regras ficariam espalhadas e as duas frentes mexeriam nos mesmos arquivos.
+- **Decisão**: as telas só chamam as funções de `frontend/lib/`, que rodam no servidor. Há um arquivo por assunto (`sessao.ts`, `catalogo.ts`, `locais.ts`...), escrito pela frente de backend. As telas nunca falam com o banco nem importam nada de `frontend/lib/servidor/`. Toda função devolve `{ ok: true, dados }` ou `{ ok: false, erro }`, com a mensagem de erro em português, pronta para a tela mostrar.
+- **Ganho**: fronteira clara entre as frentes; nomes de tabelas e colunas ficam em um lugar só; a mensagem de erro chega à tela sempre do mesmo jeito.
 - **Custo**: o front-end depende de o backend entregar as funções antes. Atenuado com o backend trabalhando uma etapa à frente ([[roteiro#Trabalho por frente]]).
+
+## ADR-15 Regras no backend e banco simples
+- **Contexto**: o [[#ADR-03 Regras de estoque dentro do banco|ADR-03]] colocava as regras em funções SQL, com regras de acesso por linha e gatilhos. Com a divisão da equipe ([[#ADR-13 Divisão do trabalho por frente|ADR-13]]), isso deixava a parte mais difícil do sistema com a frente de banco de dados e a mais simples com a frente de backend, que é a mais experiente. Um atraso no banco pararia o projeto inteiro.
+- **Decisão**:
+  - O **banco** fica simples: tabelas, ligações entre elas, valores únicos e limites simples (quantidade maior que zero, saldo nunca negativo). Não tem funções, gatilhos, visões nem regras por perfil. A segurança por linha fica ativada sem nenhuma política, de modo que o navegador não lê nem grava nada direto ([[banco-de-dados]]).
+  - O **backend** concentra todas as regras: confere a sessão e o perfil, valida os dados e executa cada operação em uma transação, com trava na linha de saldo. Usa uma conexão direta do servidor com o banco. Toda leitura e toda gravação passam por ele ([[backend]]).
+  - Substitui o [[#ADR-03 Regras de estoque dentro do banco|ADR-03]].
+- **Ganho**: o peso técnico fica com a frente mais experiente; a frente de banco tem uma entrega curta e objetiva; as regras ficam em TypeScript, que toda a equipe lê; continua não existindo operação pela metade nem saldo errado por duas operações simultâneas.
+- **Custo**: as regras valem para tudo que passa pelo backend, e não mais para qualquer acesso ao banco. Quem acessar o banco por fora do sistema encontra só os limites simples. O servidor passa a guardar um segredo a mais, a conexão com o banco (`DATABASE_URL`), que dá acesso total aos dados.
 
 ## Pendentes
 

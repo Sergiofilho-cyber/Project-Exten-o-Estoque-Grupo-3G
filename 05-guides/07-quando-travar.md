@@ -45,4 +45,4 @@ Guarde os check-ins no grupo: eles servem como evidência pro portfólio de exte
 
 Se a dúvida for sobre **como o sistema deve se comportar** e a resposta não estiver em `docs/`, não invente. Registre a dúvida em [decisões pendentes](../docs/00-context/escopo.md) e pergunte ao responsável pelo projeto.
 
-Problemas comuns de ambiente (tela em branco, "permission denied", listas vazias) estão em [`docs/05-guides/ambiente.md`](../docs/05-guides/ambiente.md#problemas-comuns).
+Problemas comuns de ambiente (tela em branco, "permission denied", listas vazias) estão em [01 — Setup do ambiente](01-setup-ambiente.md#problemas-comuns).

@@ -1,9 +1,9 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import { AUTH_COOKIE_OPTIONS } from "@/lib/auth-cookie-options";
 
-export { AUTH_COOKIE_OPTIONS };
-
+// Cliente do Supabase para código que roda no servidor (rotas em app/api/ e
+// componentes de servidor). Usa a sessão do cookie, então o banco aplica as
+// permissões do usuário logado.
 export async function createSupabaseServer() {
   const cookieStore = await cookies();
 
@@ -21,11 +21,11 @@ export async function createSupabaseServer() {
               cookieStore.set(name, value, options),
             );
           } catch {
-            // O proxy.ts já trata da atualização segura do cookie a cada request
+            // Componentes de servidor não podem gravar cookies. O proxy.ts já
+            // renova o cookie da sessão a cada requisição.
           }
         },
       },
-      cookieOptions: AUTH_COOKIE_OPTIONS,
     },
   );
 }

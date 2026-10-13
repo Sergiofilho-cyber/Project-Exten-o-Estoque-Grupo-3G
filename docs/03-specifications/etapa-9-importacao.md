@@ -14,13 +14,18 @@ RF-27.
 
 ## Tarefas
 
+### Backend
+
 - [ ] **T9.1** Definir o modelo da planilha: categoria, família, código, nome e atributos  
-  Responsável: a definir
-- [ ] **T9.2** Tela de envio com prévia e lista de linhas com problema  
   Responsável: a definir
 - [ ] **T9.3** Gravação: cria categorias e famílias que faltam, e as variantes  
   Responsável: a definir
 - [ ] **T9.4** Importar o mesmo arquivo duas vezes não duplica nada  
+  Responsável: a definir
+
+### Front-end
+
+- [ ] **T9.2** Tela de envio com prévia e lista de linhas com problema  
   Responsável: a definir
 
 ## Pronto quando (Definition of Done)

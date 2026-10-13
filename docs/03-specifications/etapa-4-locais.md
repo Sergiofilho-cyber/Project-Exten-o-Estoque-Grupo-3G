@@ -14,11 +14,18 @@ RF-09, RF-10, RF-11.
 
 ## Tarefas
 
+### Backend
+
+- [ ] **T4.3** Sugestão automática de código a partir do local pai  
+  Responsável: a definir
+- [ ] **T4.6** Funções de locais em `lib/locais.ts`: listar a árvore com o caminho completo, criar, editar, mover e desativar  
+  Responsável: a definir
+
+### Front-end
+
 - [ ] **T4.1** Tela de locais em árvore, que abre e fecha os níveis  
   Responsável: a definir
 - [ ] **T4.2** Formulário de local: nome, tipo, código e local que o contém  
-  Responsável: a definir
-- [ ] **T4.3** Sugestão automática de código a partir do local pai  
   Responsável: a definir
 - [ ] **T4.4** Mover local para dentro de outro  
   Responsável: a definir

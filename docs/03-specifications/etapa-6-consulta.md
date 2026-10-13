@@ -14,6 +14,13 @@ RF-17, RF-18, RF-19, RNF-05, RNF-06.
 
 ## Tarefas
 
+### Backend
+
+- [ ] **T6.6** Funções de consulta em `lib/consulta.ts`: busca de variantes, saldo total e por local de uma variante, conteúdo de um local, itens críticos e totais do painel  
+  Responsável: a definir
+
+### Front-end
+
 - [ ] **T6.1** Busca na tela inicial  
   Responsável: a definir
 - [ ] **T6.2** Tela do produto: saldo total e saldo por local, com o caminho de cada local  

@@ -14,7 +14,7 @@
 - [ ] Regras de negócio (`docs/02-domain/domain-model.md`)
 - [ ] Banco de dados (`docs/04-architecture/banco-de-dados.md`)
 - [ ] Decisões (`docs/04-architecture/decisions.md`)
-- [ ] Guias (`docs/05-guides/` ou `05-guides/`)
+- [ ] Guias (`05-guides/`)
 
 ## Conferências
 - [ ] `npm run lint` e `npx tsc --noEmit` sem erros (dentro de `frontend/`)

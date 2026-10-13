@@ -57,7 +57,7 @@ Cada requisito tem um código. As tarefas das [[roteiro|etapas]] apontam para es
 | **RNF-04** Segurança | Cada perfil só lê e grava o que lhe cabe, e a regra vale no banco, não só na tela | Testes por perfil em [[security-model]] |
 | **RNF-05** Uso no celular | Todas as telas de consulta e de baixa funcionam em tela de 360 px de largura | Teste manual no celular |
 | **RNF-06** Desempenho | Busca de produto responde em até 1 segundo com 5 mil variantes | Medir com a carga inicial |
-| **RNF-07** Portabilidade | Um ambiente novo é montado só com os arquivos de migração | Montar do zero seguindo [[ambiente]] |
+| **RNF-07** Portabilidade | Um ambiente novo é montado só com os arquivos de migração | Montar do zero seguindo `05-guides/01-setup-ambiente.md` |
 | **RNF-08** Adaptabilidade | Tipos de local, categorias e atributos são dados, não código | Cadastrar uma categoria nova sem alterar o sistema |
 
 ## Pontos de atenção conforme o volume crescer

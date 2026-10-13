@@ -343,4 +343,4 @@ São o critério de aceite do banco: cada linha precisa ser testada no Supabase 
 2. Crie um arquivo novo em `backend/supabase/migrations/` com data e hora no nome.
 3. Atualize este documento e o [[domain-model]] no mesmo pull request.
 
-Passo a passo em [[ambiente]].
+Passo a passo em `05-guides/01-setup-ambiente.md`.

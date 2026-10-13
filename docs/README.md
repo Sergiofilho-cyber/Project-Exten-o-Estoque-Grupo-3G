@@ -25,6 +25,7 @@ Leia nesta ordem. Os quatro primeiros não exigem conhecimento de programação.
 | `02-domain` | Regras de negócio e entidades |
 | `03-specifications` | Roteiro e etapas de construção, com tarefas |
 | `04-architecture` | Banco de dados e decisões técnicas |
-| `05-guides` | Como contribuir e como montar o ambiente (os guias práticos da equipe ficam em `05-guides/`, na raiz do repositório) |
 | `06-security` | Quem pode fazer o quê |
 | `08-observability` | Como acompanhar erros e auditoria |
+
+Os guias de trabalho da equipe (ambiente, Git, uso de IA, como pegar tarefas) ficam em `05-guides/`, na raiz do repositório.

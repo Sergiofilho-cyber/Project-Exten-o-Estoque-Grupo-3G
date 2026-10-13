@@ -77,13 +77,19 @@ Cada decisão registra o contexto, o que foi escolhido e o que isso custa. Decis
 
 | Frente | Integrantes | Cuida de |
 |---|---|---|
-| Backend | Antonio Geovane Porto Camelo (líder) e Joel Caleb Coelho dos Santos | Parte de servidor em `frontend/`: `lib/` (acesso ao Supabase), `proxy.ts` (sessão e proteção de rotas) e `app/api/` (rotas de servidor). Escreve a especificação do banco para a frente de banco, testa o banco entregue e estrutura os testes de implementação e de uso inicial |
+| Backend | Antonio Geovane Porto Camelo (líder) e Joel Caleb Coelho dos Santos | Parte de servidor em `frontend/`: `lib/` (funções de acesso aos dados, ver [[#ADR-14 Telas acessam os dados pelas funções de lib\|ADR-14]]), `proxy.ts` (sessão e proteção de rotas) e `app/api/` (rotas de servidor). Escreve a especificação do banco para a frente de banco, testa o banco entregue e estrutura os testes de implementação e de uso inicial |
 | Banco de dados | Lucas Amaro Oliveira (líder), Lucas Soares Saraiva e Felipe Cauã Pereira Ladislau Costa | `backend/supabase/`: escreve as migrações e constrói o banco no Supabase a partir da especificação em [[banco-de-dados]], cria dados de teste, gera os tipos e escreve as migrações seguintes |
 | Front-end | Eduardo Martins da Silva do Carmo (líder) e Antonio Sergio Freitas Rodrigues Filho | Telas e componentes em `frontend/app/` e `frontend/components/`, incluindo as telas funcionais, a identidade visual e a tipografia |
 
 - **Ordem das fases**: (1) o backend estrutura a base do aplicativo e especifica o banco; (2) a frente de banco constrói o banco; (3) o backend testa o banco e estrutura os testes de implementação e de uso inicial; (4) o front-end constrói as telas e aplica o design. O plano de ação entregue à faculdade descreve as mesmas fases.
 - **Ganho**: cada frente sabe onde mexer e quem revisa cada parte.
 - **Custo**: as frentes dependem umas das outras (o banco precisa estar pronto antes da integração).
+
+## ADR-14 Telas acessam os dados pelas funções de lib
+- **Contexto**: com uma frente de backend e outra de front-end no mesmo aplicativo Next.js, era preciso definir onde termina o trabalho de uma e começa o da outra. Se cada tela escrevesse a própria consulta ao Supabase, as regras ficariam espalhadas e as duas frentes mexeriam nos mesmos arquivos.
+- **Decisão**: só os arquivos de `frontend/lib/` falam com o Supabase. Há um arquivo por assunto (`sessao.ts`, `catalogo.ts`, `locais.ts`...), escrito pela frente de backend. As telas chamam essas funções e nunca importam o cliente do Supabase. Toda função devolve `{ ok: true, dados }` ou `{ ok: false, erro }`, com a mensagem de erro em português, pronta para a tela mostrar.
+- **Ganho**: fronteira clara entre as frentes; nomes de tabelas e colunas ficam em um lugar só; a mensagem de erro do banco chega à tela sempre do mesmo jeito.
+- **Custo**: o front-end depende de o backend entregar as funções antes. Atenuado com o backend trabalhando uma etapa à frente ([[roteiro#Trabalho por frente]]).
 
 ## Pendentes
 

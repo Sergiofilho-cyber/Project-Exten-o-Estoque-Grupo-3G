@@ -1,49 +1,74 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Loader2, LogOut, Package } from "lucide-react";
-import { supabaseClient as supabase } from "@/lib/supabase-client";
+import { podeConsultar } from "@/lib/cargos";
+import { buscarPerfilAtual, sair, type Perfil } from "@/lib/sessao";
 
-// Página inicial provisória. O painel com totais é a tarefa T6.5
-// (docs/03-specifications/etapa-6-consulta.md).
+// Página inicial provisória, sem acabamento visual. O painel com totais é a
+// tarefa T6.5 (docs/03-specifications/etapa-6-consulta.md).
 export default function InicioPage() {
   const router = useRouter();
-  const [saindo, setSaindo] = useState(false);
+  const [perfil, setPerfil] = useState<Perfil | null>(null);
+  const [erro, setErro] = useState<string | null>(null);
 
-  const handleSair = async () => {
-    setSaindo(true);
-    await supabase.auth.signOut();
-    router.push("/login");
-  };
+  useEffect(() => {
+    let cancelado = false;
+
+    async function carregar() {
+      const resultado = await buscarPerfilAtual();
+      if (cancelado) return;
+
+      if (!resultado.ok) {
+        setErro(resultado.erro);
+        return;
+      }
+      if (!resultado.dados) {
+        router.replace("/login");
+        return;
+      }
+      if (!podeConsultar(resultado.dados.cargo)) {
+        router.replace("/pendente");
+        return;
+      }
+      setPerfil(resultado.dados);
+    }
+
+    carregar();
+    return () => {
+      cancelado = true;
+    };
+  }, [router]);
+
+  async function handleSair() {
+    const resultado = await sair();
+    if (!resultado.ok) {
+      setErro(resultado.erro);
+      return;
+    }
+    router.replace("/login");
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="bg-indigo-600 p-2 rounded-lg">
-              <Package className="text-white" size={20} />
-            </div>
-            <span className="font-bold text-gray-800 text-lg">Estoque 3G</span>
-          </div>
-          <button
-            onClick={handleSair}
-            disabled={saindo}
-            className="bg-red-50 text-red-600 hover:bg-red-100 px-3 py-2 rounded-xl text-sm font-bold flex items-center gap-1.5 min-h-[40px] disabled:opacity-50"
-          >
-            {saindo ? <Loader2 className="animate-spin" size={16} /> : <LogOut size={16} />}
-            Sair
-          </button>
-        </div>
-      </header>
+    <main className="mx-auto max-w-md p-4">
+      <h1 className="text-xl font-bold">Estoque 3G</h1>
 
-      <main className="max-w-7xl mx-auto w-full p-4 md:p-8">
-        <h1 className="text-2xl font-extrabold text-gray-800">Início</h1>
-        <p className="text-gray-600 mt-2">
-          As telas do sistema serão adicionadas a cada etapa do roteiro.
-        </p>
-      </main>
-    </div>
+      {erro && <p role="alert" className="mt-4 text-red-700">{erro}</p>}
+
+      {perfil ? (
+        <>
+          <p className="mt-4">
+            {perfil.nome} ({perfil.cargo})
+          </p>
+          <p className="mt-2">As telas do sistema serão adicionadas a cada etapa do roteiro.</p>
+        </>
+      ) : (
+        !erro && <p className="mt-4">Carregando...</p>
+      )}
+
+      <button type="button" onClick={handleSair} className="mt-6 border px-4 py-3">
+        Sair
+      </button>
+    </main>
   );
 }

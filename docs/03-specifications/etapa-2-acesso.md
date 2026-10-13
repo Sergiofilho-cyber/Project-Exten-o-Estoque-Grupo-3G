@@ -14,16 +14,27 @@ RF-01, RF-02, RF-03, RNF-04.
 
 ## Tarefas
 
+### Backend
+
+- [ ] **T2.4** Proteção de rotas: sem sessão, volta para o login  
+  Responsável: a definir
+- [ ] **T2.6** Funções de sessão em `lib/sessao.ts`: entrar, cadastrar, sair e perfil atual  
+  Responsável: a definir
+- [ ] **T2.7** Funções de usuários em `lib/usuarios.ts`: listar perfis e alterar o cargo  
+  Responsável: a definir
+
+### Front-end
+
 - [ ] **T2.1** Tela de login e cadastro com e-mail e senha  
   Responsável: a definir
 - [ ] **T2.2** Tela "aguardando liberação" para o perfil pendente  
   Responsável: a definir
 - [ ] **T2.3** Tela de usuários para o admin alterar perfis  
   Responsável: a definir
-- [ ] **T2.4** Proteção de rotas: sem sessão, volta para o login  
-  Responsável: a definir
 - [ ] **T2.5** Menu e navegação no celular conforme o perfil  
   Responsável: a definir
+
+A base de T2.4 e T2.6 já está no repositório (`proxy.ts`, `lib/sessao.ts` e telas provisórias em `app/login` e `app/pendente`). Falta testar com o banco da Etapa 1.
 
 ## Pronto quando (Definition of Done)
 

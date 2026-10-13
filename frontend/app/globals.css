@@ -1,11 +1,1 @@
 @import "tailwindcss";
-
-body {
-  @apply bg-zinc-100 text-zinc-800 antialiased;
-}
-
-input,
-select,
-textarea {
-  @apply text-zinc-800 font-medium border-zinc-400 focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600;
-}

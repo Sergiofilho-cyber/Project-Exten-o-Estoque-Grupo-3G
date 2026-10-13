@@ -14,6 +14,13 @@ RF-20, RF-21, RF-22.
 
 ## Tarefas
 
+### Backend
+
+- [ ] **T7.6** Funções de inventário em `lib/inventarios.ts`: abrir (`abrir_inventario`), listar itens, gravar a quantidade contada, incluir item, resumo das diferenças, concluir (`concluir_inventario`) e cancelar  
+  Responsável: a definir
+
+### Front-end
+
 - [ ] **T7.1** Abrir inventário de um local (função `abrir_inventario`)  
   Responsável: a definir
 - [ ] **T7.2** Tela de contagem, pensada para celular  

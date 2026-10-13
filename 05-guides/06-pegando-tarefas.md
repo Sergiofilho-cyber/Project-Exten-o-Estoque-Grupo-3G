@@ -5,7 +5,7 @@ As tarefas estão nos arquivos de etapa em [`docs/03-specifications/`](../docs/0
 ## Como pegar uma tarefa
 
 1. Abra o roteiro e veja qual etapa está **Em execução**
-2. No arquivo da etapa, escolha uma tarefa sem responsável (por exemplo, **T3.2**)
+2. No arquivo da etapa, procure o bloco da sua frente (Banco de dados, Backend ou Front-end) e escolha uma tarefa sem responsável (por exemplo, **T3.2**)
 3. Coloque seu nome em "Responsável" e envie essa mudança
 4. Crie a branch com a etapa e o código da tarefa (ver [02 — Fluxo de Git](02-fluxo-git.md))
 5. Quando a PR for aceita, marque a caixa da tarefa

@@ -14,6 +14,20 @@ RF-04 a RF-08, RNF-08.
 
 ## Tarefas
 
+### Banco de dados
+
+- [ ] **T3.9** Migração nova com o armazenamento de imagens e suas regras de acesso  
+  Responsável: a definir
+
+### Backend
+
+- [ ] **T3.7** Funções do catálogo em `lib/catalogo.ts`: listar, criar e editar categorias, famílias e variantes; desativar e reativar variante; busca por código ou nome com paginação  
+  Responsável: a definir
+- [ ] **T3.8** Função de envio de imagem em `lib/imagens.ts`  
+  Responsável: a definir
+
+### Front-end
+
 - [ ] **T3.1** Tela de categorias, com a lista de atributos e o estoque mínimo padrão  
   Responsável: a definir
 - [ ] **T3.2** Tela de famílias  

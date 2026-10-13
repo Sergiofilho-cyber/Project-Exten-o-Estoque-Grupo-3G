@@ -14,8 +14,15 @@ RF-23 a RF-26.
 
 ## Tarefas
 
+### Backend
+
 - [ ] **T8.1** Rota de servidor que recebe um documento com protocolo e itens  
   Responsável: a definir
+- [ ] **T8.6** Funções de documentos em `lib/documentos.ts`: buscar por protocolo com os itens e os locais com saldo de cada um, confirmar a baixa (`confirmar_saida_documento`) e listar pendentes e baixados  
+  Responsável: a definir
+
+### Front-end
+
 - [ ] **T8.2** Página `/leitura/[protocolo]`, aberta pelo QR code  
   Responsável: a definir
 - [ ] **T8.3** Para cada item, listar os locais com saldo e sugerir de onde tirar  

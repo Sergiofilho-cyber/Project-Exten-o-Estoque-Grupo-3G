@@ -14,6 +14,8 @@ Base para todos; atende diretamente RNF-01, RNF-02, RNF-03 e RNF-04.
 
 ## Tarefas
 
+### Banco de dados
+
 - [ ] **T1.1** Escrever a migração inicial em `backend/supabase/migrations/`, a partir de [[banco-de-dados]], e aplicá-la no Supabase de desenvolvimento  
   Responsável: a definir
 - [ ] **T1.2** Criar dados de teste em `backend/supabase/seed.sql`: 2 categorias, 3 famílias, 8 variantes, uma árvore de 6 locais  
@@ -23,10 +25,16 @@ Base para todos; atende diretamente RNF-01, RNF-02, RNF-03 e RNF-04.
 - [ ] **T1.4** Repetir no Supabase os testes da tabela "Proteções garantidas pelo banco"  
   Responsável: a definir
 
+### Backend
+
+- [ ] **T1.5** Validar o banco entregue: conferir nomes e tipos contra o contrato de [[banco-de-dados]] e repetir os testes de proteção pelo aplicativo, com um usuário de cada perfil  
+  Responsável: a definir
+
 ## Pronto quando (Definition of Done)
 
 - [ ] A migração aplica sem erro em um projeto vazio
 - [ ] Cada linha da tabela de proteções em [[banco-de-dados]] foi conferida
+- [ ] Tabelas, colunas, funções e parâmetros têm os nomes do contrato em [[banco-de-dados]]
 - [ ] O seed pode ser reaplicado para voltar ao estado inicial
 - [ ] Lint e verificação de tipos sem erros
 - [ ] Documentação atualizada no mesmo pull request

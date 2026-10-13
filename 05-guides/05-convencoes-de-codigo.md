@@ -1,6 +1,6 @@
 # 05 — Convenções de código
 
-As regras oficiais estão em [`docs/00-context/tech-stack.md`](../docs/00-context/tech-stack.md) e [`docs/05-guides/contribuicao.md`](../docs/05-guides/contribuicao.md). Este guia resume.
+As tecnologias e o porquê de cada uma estão em [`docs/00-context/tech-stack.md`](../docs/00-context/tech-stack.md). Este guia traz as convenções do dia a dia.
 
 ## Idioma
 
@@ -28,15 +28,16 @@ Nomes técnicos que vêm de bibliotecas (`useState`, `router`, `supabase`) conti
 
 | Pasta | O que vai lá |
 |-------|--------------|
-| `frontend/app/` | Telas (uma pasta por rota) e rotas de servidor (`app/api/`) |
-| `frontend/components/` | Componentes reaproveitados por mais de uma tela |
-| `frontend/lib/` | Acesso ao Supabase e funções utilitárias |
-| `backend/supabase/migrations/` | Mudanças no banco, um arquivo novo por mudança |
+| `frontend/app/` | Telas (uma pasta por rota), da frente de front-end, e rotas de servidor (`app/api/`), da frente de backend |
+| `frontend/components/` | Componentes reaproveitados por mais de uma tela. Frente de front-end |
+| `frontend/lib/` | Funções de acesso aos dados, um arquivo por assunto (`sessao.ts`, `catalogo.ts`...). É o único lugar que fala com o Supabase. Frente de backend |
+| `backend/supabase/migrations/` | Mudanças no banco, um arquivo novo por mudança. Frente de banco de dados |
 
 ## Regras que não podem ser quebradas
 
 - TypeScript em tudo. Arquivos `.js` não são aceitos.
 - Uma tela não passa de cerca de 300 linhas. Acima disso, divida em componentes.
+- **Nenhuma tela consulta o Supabase direto.** As telas chamam as funções de `frontend/lib/`, que devolvem `{ ok, dados }` ou `{ ok, erro }`. Se faltar uma função, peça à frente de backend.
 - **Nenhuma tela ou rota soma ou subtrai saldo.** Estoque só muda pelas funções do banco (`registrar_movimentacao`, `confirmar_saida_documento`, `abrir_inventario`, `concluir_inventario`).
 - **Quem fez a ação vem da sessão**, nunca de um campo enviado pela tela.
 - Nenhuma chave ou senha no código.

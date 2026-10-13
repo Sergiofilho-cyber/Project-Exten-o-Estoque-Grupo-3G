@@ -48,7 +48,7 @@ As permissões estão concentradas em três funções do banco. Mudar quem pode 
 | Chave | Onde pode ficar | Observação |
 |---|---|---|
 | URL do projeto e chave pública | `.env.local` e navegador | Seguras por causa das políticas do banco |
-| Chave de serviço | Somente `.env.local` do servidor | Ignora todas as políticas. Nunca vai para o navegador nem para o repositório |
+| Chave de serviço | Somente `.env.local` do servidor | Ignora todas as políticas. Nunca vai para o navegador nem para o repositório. Hoje nenhuma parte do aplicativo usa essa chave; ela só entra se uma decisão registrada em [[decisions]] exigir |
 
 Regras:
 - `.env.local` está no `.gitignore` e nunca é enviado ao repositório.

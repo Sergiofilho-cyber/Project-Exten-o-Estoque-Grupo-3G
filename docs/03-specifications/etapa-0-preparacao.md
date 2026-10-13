@@ -14,15 +14,23 @@ Nenhum requisito do [[PRD]] diretamente; atende [[PRD#Requisitos não funcionais
 
 ## Tarefas
 
+### Backend
+
 - [ ] **T0.1** Criar o repositório no GitHub com um commit inicial limpo, sem nenhuma chave ou senha no código ou no histórico  
-  Responsável: a definir
-- [ ] **T0.2** Criar o projeto Supabase de desenvolvimento  
   Responsável: a definir
 - [x] **T0.3** Escrever `.env.example` com os nomes das variáveis, sem valores (em `frontend/.env.example`)  
   Responsável: a definir
-- [ ] **T0.4** Cada integrante segue o guia [[ambiente]] e roda o projeto  
-  Responsável: a definir
 - [ ] **T0.5** Proteger a branch `main`: alterações só entram por pull request  
+  Responsável: a definir
+
+### Banco de dados
+
+- [ ] **T0.2** Criar o projeto Supabase de desenvolvimento  
+  Responsável: a definir
+
+### Todas as frentes
+
+- [ ] **T0.4** Cada integrante segue o guia de ambiente (`05-guides/01-setup-ambiente.md`) e roda o projeto  
   Responsável: a definir
 
 ## Pronto quando (Definition of Done)

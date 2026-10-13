@@ -14,6 +14,13 @@ RF-12 a RF-16, RNF-01, RNF-02, RNF-03.
 
 ## Tarefas
 
+### Backend
+
+- [ ] **T5.6** Funções de movimentação em `lib/movimentacoes.ts`: entrada, transferência e saída avulsa pela função `registrar_movimentacao`; saldo de uma variante em um local; histórico por variante e geral, com filtro por período e paginação  
+  Responsável: a definir
+
+### Front-end
+
 - [ ] **T5.1** Tela de entrada: escolher variante, local de destino e quantidade  
   Responsável: a definir
 - [ ] **T5.2** Tela de transferência: origem, destino e quantidade, mostrando o saldo da origem  

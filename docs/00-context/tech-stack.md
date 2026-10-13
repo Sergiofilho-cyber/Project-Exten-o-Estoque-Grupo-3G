@@ -25,7 +25,7 @@ Supabase  -- login, banco PostgreSQL, imagens
 ```
 
 - O login é feito pelo Supabase e a sessão fica em cookie.
-- As telas leem os dados direto do Supabase, e o banco decide o que cada perfil pode ver (ver [[security-model]]).
+- As telas chamam as funções de `frontend/lib/`, que leem e gravam no Supabase. O banco decide o que cada perfil pode ver (ver [[security-model]] e [[decisions#ADR-14 Telas acessam os dados pelas funções de lib|ADR-14]]).
 - Toda alteração de estoque passa por funções dentro do banco (ver [[banco-de-dados]]). O aplicativo nunca calcula saldo.
 
 ## Onde fica cada parte no repositório
@@ -56,4 +56,4 @@ A estrutura do banco fica em `backend/supabase/migrations/`. Montar um ambiente 
 - Uma tela não passa de cerca de 300 linhas. Acima disso, divida em componentes.
 - Nenhuma chave ou senha no código. Segredos ficam em `frontend/.env.local`, que não vai para o repositório.
 
-Regras de trabalho em equipe: [[contribuicao]].
+Regras de trabalho em equipe: guias em `05-guides/`, na raiz do repositório.

@@ -1,17 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { MobileNav } from "@/components/MobileNav";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Estoque 3G",
@@ -21,24 +9,18 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
 };
 
+// Estrutura mínima. Identidade visual, tipografia e navegação são da frente
+// de front-end (docs/04-architecture/decisions.md, ADR-13).
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col pb-16 md:pb-0 bg-gray-50">
-        {children}
-        <MobileNav />
-      </body>
+    <html lang="pt-BR">
+      <body>{children}</body>
     </html>
   );
 }

@@ -1,6 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-import { AUTH_COOKIE_OPTIONS } from "@/lib/auth-cookie-options";
 
 // Páginas acessíveis sem sessão ativa.
 const ROTAS_PUBLICAS = ["/login"];
@@ -32,7 +31,6 @@ export async function proxy(request: NextRequest) {
           );
         },
       },
-      cookieOptions: AUTH_COOKIE_OPTIONS,
     },
   );
 

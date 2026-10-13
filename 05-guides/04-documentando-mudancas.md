@@ -25,7 +25,7 @@ Toda PR abre com este template preenchido (o GitHub carrega ele automaticamente 
 - [ ] Regras de negócio (`docs/02-domain/domain-model.md`)
 - [ ] Banco de dados (`docs/04-architecture/banco-de-dados.md`)
 - [ ] Decisões (`docs/04-architecture/decisions.md`)
-- [ ] Guias (`docs/05-guides/` ou `05-guides/`)
+- [ ] Guias (`05-guides/`)
 ```
 
 **PR sem esse template preenchido não é aprovada.** "Ajustes" ou "alterações" não contam como explicação.
@@ -38,14 +38,14 @@ Toda PR abre com este template preenchido (o GitHub carrega ele automaticamente 
 | Mudou tabela, coluna, função ou regra de acesso do banco | Crie uma **migração nova** em `backend/supabase/migrations/` (nunca edite uma já aplicada) e atualize `docs/04-architecture/banco-de-dados.md` e `docs/02-domain/domain-model.md` |
 | Criou ou mudou um termo do negócio (variante, local, baixa...) | `docs/00-context/glossario.md` |
 | Tomou uma decisão técnica relevante (biblioteca, padrão, estrutura) | Novo ADR em `docs/04-architecture/decisions.md` |
-| Mudou algo em como a equipe trabalha ou roda o projeto | `docs/05-guides/` e o guia correspondente em `05-guides/` |
+| Mudou algo em como a equipe trabalha ou roda o projeto | O guia correspondente em `05-guides/` |
 
 ## Como escrever um ADR
 
 Todos os ADRs ficam em um único arquivo, `docs/04-architecture/decisions.md`, numerados em sequência. Uma decisão nunca é apagada: se mudar, registra-se uma nova que substitui a anterior.
 
 ```markdown
-## ADR-13 Título curto da decisão
+## ADR-15 Título curto da decisão
 - **Contexto**: qual era o problema?
 - **Decisão**: o que foi decidido
 - **Ganho**: o que melhora

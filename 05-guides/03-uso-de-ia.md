@@ -29,6 +29,7 @@ Pode usar outras ferramentas também (ChatGPT, Claude, Copilot etc.). O que impo
 ## Cuidados
 
 - Nunca cole o conteúdo do `.env.local`, senhas ou tokens em nenhuma IA
+- Você é responsável pelo que envia: **leia e entenda** o código antes de abrir a PR
 - **Rode e teste** antes de abrir a PR. A IA erra, e é mais rápido perceber na sua máquina do que no review
 
 ## Prompts que funcionaram

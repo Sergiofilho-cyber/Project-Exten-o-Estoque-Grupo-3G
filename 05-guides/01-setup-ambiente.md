@@ -2,8 +2,6 @@
 
 Objetivo: sair do zero até o sistema rodando na sua máquina em uns 10 minutos.
 
-> O passo a passo oficial, com a lista de variáveis e como montar um banco do zero, está em [`docs/05-guides/ambiente.md`](../docs/05-guides/ambiente.md). Este guia é o resumo prático.
-
 ## 1. Contas
 
 - [ ] Criar conta no [GitHub](https://github.com) (use seu nome real ou algo reconhecível no perfil)
@@ -49,6 +47,11 @@ cp .env.example .env.local
 
 Preencha o `.env.local` com os valores que o responsável pelo projeto passar por mensagem privada. Nunca commite o `.env.local`.
 
+| Variável | O que é |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Endereço do projeto Supabase |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Chave pública |
+
 ## 6. Rodar
 
 ```bash
@@ -62,4 +65,21 @@ Abra `http://localhost:3000`.
 - [ ] A tela de login abriu no navegador
 - [ ] `npm run lint` e `npx tsc --noEmit` rodam sem erros
 
-Se algum item falhar, vá direto pro guia [07 — Quando travar](07-quando-travar.md).
+Se algum item falhar, veja os problemas comuns abaixo e o guia [07 — Quando travar](07-quando-travar.md).
+
+## Problemas comuns
+
+| Sintoma | Causa provável |
+|---|---|
+| Tela "aguardando liberação" após o login | Perfil ainda `pendente` |
+| "permission denied" ao movimentar | Seu perfil não é gerente de estoque nem admin |
+| Listas vazias | Dados de teste não aplicados, ou perfil sem permissão de leitura |
+
+## Montando um banco do zero
+
+Só para quem cuida do banco. O mesmo procedimento monta o ambiente de produção, sem o passo 3.
+
+1. Crie um projeto novo no Supabase.
+2. No editor SQL, execute os arquivos de `backend/supabase/migrations/` na ordem dos nomes.
+3. Execute `backend/supabase/seed.sql` para ter dados de teste.
+4. Cadastre-se pelo aplicativo e, no painel do Supabase, altere seu cargo para `admin` na tabela `perfis`. Esse é o único ajuste manual, feito uma vez por ambiente.

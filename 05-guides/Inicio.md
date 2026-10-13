@@ -6,6 +6,8 @@ Em uma frase: o sistema organiza o cadastro de produtos (famílias, variantes, a
 
 Esta pasta explica **como a equipe trabalha**. Não precisa decorar nada, só ler na ordem e voltar quando tiver dúvida.
 
+O que o sistema é e faz está em [`docs/`](../docs/README.md), que é a fonte da verdade do projeto. Se algo aqui contradisser `docs/`, vale o que está em `docs/`.
+
 ## Ordem de leitura
 
 | # | Guia | Responde a pergunta |
@@ -22,7 +24,7 @@ Esta pasta explica **como a equipe trabalha**. Não precisa decorar nada, só le
 
 1. **Ninguém faz push direto na `main`.** Todo código entra por branch + Pull Request.
 2. **Toda mudança chega com explicação escrita.** Sem explicação, a PR não é aprovada.
-3. **Toda tarefa começa numa issue.** Se não tem issue, cria uma antes de começar.
+3. **Toda tarefa vem de uma etapa do roteiro.** As tarefas estão em `docs/03-specifications/`, cada uma com um código (T3.2, T5.1...).
 
 ## Seu trabalho fica registrado
 
@@ -30,4 +32,4 @@ Commits, Pull Requests e reviews ficam registrados no GitHub com o nome de quem 
 
 ## Segredos nunca vão pro repositório
 
-Senhas, tokens e configurações sensíveis ficam no arquivo `.env`, que está no `.gitignore` e **nunca** é commitado. O repositório tem um `.env.example` mostrando quais variáveis existem, sem os valores reais.
+Senhas, tokens e configurações sensíveis ficam no arquivo `frontend/.env.local`, que está no `.gitignore` e **nunca** é commitado. O repositório tem um `frontend/.env.example` mostrando quais variáveis existem, sem os valores reais.

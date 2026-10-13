@@ -20,14 +20,16 @@ Pode usar outras ferramentas também (ChatGPT, Claude, Copilot etc.). O que impo
 
 ## Dicas pra ter respostas melhores
 
-- Diga **onde** está: "neste projeto, no arquivo X, que usa a stack Y..."
-- Peça **seguindo o padrão**: "siga o mesmo padrão do arquivo `produtos`"
+- **Entregue o contexto**: os arquivos de `docs/` existem pra isso. Comece por `docs/00-context/project-overview.md`, `docs/02-domain/domain-model.md` e `docs/04-architecture/banco-de-dados.md`
+- Diga **onde** está: "neste projeto, no arquivo X, que usa Next.js e Supabase..."
+- Peça **seguindo o padrão**: "siga o mesmo padrão da tela de login"
 - Peça **em partes**: uma função por vez funciona melhor que "faz o sistema inteiro"
 - Se a resposta não funcionou, **cole o erro** e peça pra corrigir
 
 ## Cuidados
 
-- Nunca cole o conteúdo do `.env`, senhas ou tokens em nenhuma IA
+- Nunca cole o conteúdo do `.env.local`, senhas ou tokens em nenhuma IA
+- Você é responsável pelo que envia: **leia e entenda** o código antes de abrir a PR
 - **Rode e teste** antes de abrir a PR. A IA erra, e é mais rápido perceber na sua máquina do que no review
 
 ## Prompts que funcionaram

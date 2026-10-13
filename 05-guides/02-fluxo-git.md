@@ -13,32 +13,37 @@ A `main` é a versão "oficial" do sistema. Ela é protegida: o GitHub não deix
 git checkout main
 git pull
 
-# 2. Crie sua branch a partir dela (use o número da issue)
-git checkout -b feat/12-cadastro-variantes
+# 2. Crie sua branch a partir dela (use a etapa e o código da tarefa)
+git checkout -b etapa3/t3-3-tela-variantes
 
 # 3. Trabalhe normalmente e salve seu progresso em commits
 git add .
 git commit -m "feat: cria formulário de cadastro de variantes"
 
-# 4. Envie sua branch pro GitHub
-git push -u origin feat/12-cadastro-variantes
+# 4. Antes de enviar, confira lint e tipos (dentro de frontend/)
+cd frontend
+npm run lint
+npx tsc --noEmit
+cd ..
+
+# 5. Envie sua branch pro GitHub
+git push -u origin etapa3/t3-3-tela-variantes
 ```
 
-5. No GitHub, abra um **Pull Request** da sua branch para a `main`
-6. Preencha o template da PR (ver [04 — Documentando mudanças](04-documentando-mudancas.md))
-7. Aguarde o review. Se pedirem ajustes, é só fazer novos commits na mesma branch e dar push de novo
-8. Aprovado → merge → apague a branch
+6. No GitHub, abra um **Pull Request** da sua branch para a `main`
+7. Preencha o template da PR (ver [04 — Documentando mudanças](04-documentando-mudancas.md))
+8. Aguarde o review. Se pedirem ajustes, é só fazer novos commits na mesma branch e dar push de novo
+9. Aprovado → merge → apague a branch
 
 ## Nome de branch
 
-`tipo/numero-da-issue-descricao-curta`
+`etapaN/codigo-da-tarefa-descricao-curta`, com a etapa e o código da tarefa que estão em [`docs/03-specifications/`](../docs/03-specifications/roteiro.md).
 
-| Tipo | Quando usar | Exemplo |
-|------|-------------|---------|
-| `feat/` | Funcionalidade nova | `feat/12-cadastro-variantes` |
-| `fix/` | Correção de erro | `fix/18-busca-endereco` |
-| `docs/` | Só documentação | `docs/20-glossario` |
-| `refactor/` | Melhoria de código sem mudar comportamento | `refactor/25-servico-produtos` |
+| Situação | Exemplo |
+|----------|---------|
+| Tarefa de uma etapa | `etapa3/t3-3-tela-variantes` |
+| Correção ligada a uma tarefa | `etapa5/t5-5-mensagem-saldo-insuficiente` |
+| Só documentação | `docs/glossario-modulo` |
 
 ## Mensagem de commit
 

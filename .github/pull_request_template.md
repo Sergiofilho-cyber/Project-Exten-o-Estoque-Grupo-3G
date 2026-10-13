@@ -18,5 +18,5 @@
 - [ ] Guias (`05-guides/`)
 
 ## Conferências
-- [ ] `npm run lint` e `npx tsc --noEmit` sem erros (dentro de `frontend/`)
+- [ ] `npm run lint` e `npm run typecheck` sem erros (na raiz)
 - [ ] Nenhuma chave ou senha no código

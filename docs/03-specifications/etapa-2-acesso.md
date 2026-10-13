@@ -18,9 +18,9 @@ RF-01, RF-02, RF-03, RNF-04.
 
 - [ ] **T2.4** Proteção de rotas: sem sessão, volta para o login  
   Responsável: a definir
-- [ ] **T2.6** Funções de sessão em `lib/sessao.ts`, rodando no servidor: entrar, cadastrar (criando o perfil `pendente`), sair e perfil atual  
+- [ ] **T2.6** Funções de sessão em `backend/src/sessao.ts`, rodando no servidor: entrar, cadastrar (criando o perfil `pendente`), sair e perfil atual  
   Responsável: a definir
-- [ ] **T2.7** Funções de usuários em `lib/usuarios.ts`: listar perfis e alterar o perfil de um usuário, só para admin  
+- [ ] **T2.7** Funções de usuários em `backend/src/usuarios.ts`: listar perfis e alterar o perfil de um usuário, só para admin  
   Responsável: a definir
 
 ### Front-end
@@ -34,7 +34,7 @@ RF-01, RF-02, RF-03, RNF-04.
 - [ ] **T2.5** Menu e navegação no celular conforme o perfil  
   Responsável: a definir
 
-A base de T2.4 e T2.6 já está no repositório (`proxy.ts`, `lib/sessao.ts` e telas provisórias em `app/login` e `app/pendente`), mas `lib/sessao.ts` ainda lê o perfil direto do navegador. Precisa passar a rodar no servidor ([[backend]]) e ser testada com o banco da Etapa 1.
+A base de T2.4 e T2.6 já está no repositório (`proxy.ts`, `backend/src/sessao.ts`, que roda no servidor, e telas provisórias em `app/login` e `app/pendente`). Falta testar com o banco da Etapa 1: a criação e a leitura do perfil usam a tabela `perfis` ([[backend]]).
 
 ## Pronto quando (Definition of Done)
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { cadastrar, entrar } from "@/lib/sessao";
+import { cadastrar, entrar } from "@estoque/backend/sessao";
 
 type Modo = "entrar" | "cadastrar";
 

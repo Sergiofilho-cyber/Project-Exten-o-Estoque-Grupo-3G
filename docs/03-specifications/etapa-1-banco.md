@@ -29,7 +29,7 @@ Base para todos; prepara RNF-01, RNF-02, RNF-03, RNF-04 e RNF-07.
   Responsável: a definir
 - [ ] **T1.5** Validar o banco entregue: conferir nomes e tipos contra o contrato e repetir os testes do que o banco recusa  
   Responsável: a definir
-- [ ] **T1.6** Conexão do servidor com o banco e conferência de sessão e perfil em `lib/servidor/`  
+- [ ] **T1.6** Conexão do servidor com o banco e conferência de sessão e perfil em `backend/src/servidor/`  
   Responsável: a definir
 
 ## Pronto quando (Definition of Done)

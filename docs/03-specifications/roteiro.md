@@ -20,7 +20,7 @@ As etapas 3 e 4 podem andar ao mesmo tempo, assim como 6, 7, 8 e 9.
 
 ## Trabalho por frente
 
-A equipe se divide em três frentes ([[decisions#ADR-13 Divisão do trabalho por frente|ADR-13]]). Dentro de cada etapa, as tarefas estão separadas por frente. As regras do sistema ficam no backend ([[decisions#ADR-15 Regras no backend e banco simples|ADR-15]]) e o banco é simples. As telas não falam com o banco: chamam as funções que o backend escreve em `frontend/lib/` ([[decisions#ADR-14 Telas acessam os dados pelas funções de lib|ADR-14]]).
+A equipe se divide em três frentes ([[decisions#ADR-13 Divisão do trabalho por frente|ADR-13]]). Dentro de cada etapa, as tarefas estão separadas por frente. As regras do sistema ficam no backend ([[decisions#ADR-15 Regras no backend e banco simples|ADR-15]]) e o banco é simples. As telas não falam com o banco: chamam as funções que o backend escreve em `backend/src/` ([[decisions#ADR-14 Telas acessam os dados pelas funções de lib|ADR-14]]).
 
 ### A fila de cada frente
 
@@ -40,7 +40,7 @@ O backend trabalha uma etapa à frente do front-end: quando o front-end começa 
 |---|---|---|
 | Backend | Banco de dados | A especificação e o contrato em [[banco-de-dados]] |
 | Banco de dados | Backend | O banco montado no Supabase de desenvolvimento, com os dados de teste e o resultado dos testes do que o banco recusa |
-| Backend | Front-end | As funções de cada etapa em `frontend/lib/`, com os tipos dos dados |
+| Backend | Front-end | As funções de cada etapa em `backend/src/`, com os tipos dos dados |
 | Front-end | Backend | O pedido de uma função que falte, antes de a tela ser construída |
 
 Uma mudança que atravessa a fronteira (o banco muda um nome do contrato, a tela precisa de um dado que não existe) é combinada entre os líderes das frentes antes de ser feita.

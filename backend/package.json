@@ -1,0 +1,24 @@
+{
+  "name": "@estoque/backend",
+  "version": "0.1.0",
+  "private": true,
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/ssr": "^0.10.2",
+    "@supabase/supabase-js": "^2.103.2",
+    "postgres": "^3.4.5",
+    "server-only": "^0.0.1"
+  },
+  "peerDependencies": {
+    "next": "16.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "typescript": "^5"
+  }
+}

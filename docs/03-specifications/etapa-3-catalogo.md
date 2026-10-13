@@ -16,9 +16,9 @@ RF-04 a RF-08, RNF-08.
 
 ### Backend
 
-- [ ] **T3.7** Funções do catálogo em `lib/catalogo.ts`: listar, criar e editar categorias, famílias e variantes; desativar e reativar variante; busca por código ou nome com paginação  
+- [ ] **T3.7** Funções do catálogo em `backend/src/catalogo.ts`: listar, criar e editar categorias, famílias e variantes; desativar e reativar variante; busca por código ou nome com paginação  
   Responsável: a definir
-- [ ] **T3.8** Armazenamento de imagens no Supabase e função de envio em `lib/imagens.ts`  
+- [ ] **T3.8** Armazenamento de imagens no Supabase e função de envio em `backend/src/imagens.ts`  
   Responsável: a definir
 
 ### Front-end

@@ -2,9 +2,10 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { podeConsultar } from "@/lib/cargos";
-import type { Resultado } from "@/lib/resultado";
-import { buscarPerfilAtual, sair, type Perfil } from "@/lib/sessao";
+import { podeConsultar } from "@estoque/backend/cargos";
+import type { Resultado } from "@estoque/backend/resultado";
+import { buscarPerfilAtual, sair } from "@estoque/backend/sessao";
+import type { Perfil } from "@estoque/backend/tipos";
 
 // Tela "aguardando liberação" provisória, sem acabamento visual. A versão
 // final é a tarefa T2.2 (docs/03-specifications/etapa-2-acesso.md).

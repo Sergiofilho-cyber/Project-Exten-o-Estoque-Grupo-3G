@@ -37,15 +37,14 @@ cd Project-Exten-o-Estoque-Grupo-3G
 
 ## 5. Instalar e configurar o aplicativo
 
-O aplicativo fica em `frontend/`. Todos os comandos `npm` e `npx` rodam dentro dessa pasta.
+O projeto tem duas pastas de código, `frontend/` (telas) e `backend/` (regras), e é instalado de uma vez só. Todos os comandos `npm` rodam **na raiz do repositório**.
 
 ```bash
-cd frontend
 npm install
-cp .env.example .env.local
+cp frontend/.env.example frontend/.env.local
 ```
 
-Preencha o `.env.local` com os valores que o responsável pelo projeto passar por mensagem privada. Nunca commite o `.env.local`.
+Preencha o `frontend/.env.local` com os valores que o responsável pelo projeto passar por mensagem privada. Nunca commite o `.env.local`.
 
 | Variável | O que é |
 |---|---|
@@ -64,7 +63,7 @@ Abra `http://localhost:3000`.
 ## ✅ Checklist final
 
 - [ ] A tela de login abriu no navegador
-- [ ] `npm run lint` e `npx tsc --noEmit` rodam sem erros
+- [ ] `npm run lint` e `npm run typecheck` rodam sem erros
 
 Se algum item falhar, veja os problemas comuns abaixo e o guia [07 — Quando travar](07-quando-travar.md).
 

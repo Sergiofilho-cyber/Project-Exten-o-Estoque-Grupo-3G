@@ -30,15 +30,15 @@ Nomes técnicos que vêm de bibliotecas (`useState`, `router`, `supabase`) conti
 |-------|--------------|
 | `frontend/app/` | Telas (uma pasta por rota), da frente de front-end, e rotas de servidor (`app/api/`), da frente de backend |
 | `frontend/components/` | Componentes reaproveitados por mais de uma tela. Frente de front-end |
-| `frontend/lib/` | As funções do backend, um arquivo por assunto (`sessao.ts`, `catalogo.ts`...). Rodam no servidor e são o único caminho até o banco. Frente de backend |
-| `frontend/lib/servidor/` | Código interno do backend: conexão com o banco e conferência de perfil. Nenhuma tela importa nada daqui |
+| `backend/src/` | As funções do backend, um arquivo por assunto (`sessao.ts`, `catalogo.ts`...). Rodam no servidor e são o único caminho até o banco. As telas as importam como `@estoque/backend/<arquivo>`. Frente de backend |
+| `backend/src/servidor/` | Código interno do backend: conexão com o banco e conferência de perfil. Nenhuma tela importa nada daqui |
 | `backend/supabase/migrations/` | Mudanças no banco, um arquivo novo por mudança. Frente de banco de dados |
 
 ## Regras que não podem ser quebradas
 
 - TypeScript em tudo. Arquivos `.js` não são aceitos.
 - Uma tela não passa de cerca de 300 linhas. Acima disso, divida em componentes.
-- **Nenhuma tela fala com o banco.** As telas chamam as funções de `frontend/lib/`, que rodam no servidor e devolvem `{ ok, dados }` ou `{ ok, erro }`. Se faltar uma função, peça à frente de backend.
+- **Nenhuma tela fala com o banco.** As telas chamam as funções de `backend/src/`, que rodam no servidor e devolvem `{ ok, dados }` ou `{ ok, erro }`. Se faltar uma função, peça à frente de backend.
 - **Nenhuma tela soma ou subtrai saldo.** Estoque só muda pelas operações do backend (`registrarMovimentacao`, `confirmarSaidaDocumento`, `abrirInventario`, `concluirInventario`).
 - **O banco não tem regra de negócio.** Nada de funções, gatilhos ou regras por perfil no SQL: isso é do backend (`docs/04-architecture/backend.md`).
 - **Quem fez a ação vem da sessão**, nunca de um campo enviado pela tela.
@@ -46,11 +46,11 @@ Nomes técnicos que vêm de bibliotecas (`useState`, `router`, `supabase`) conti
 
 ## O que o linter resolve sozinho
 
-O projeto usa **ESLint** (configuração em `frontend/eslint.config.mjs`). Antes de abrir uma PR, dentro de `frontend/`:
+O projeto usa **ESLint** (configuração em `frontend/eslint.config.mjs`). Antes de abrir uma PR, na raiz do repositório:
 
 ```bash
 npm run lint
-npx tsc --noEmit
+npm run typecheck
 ```
 
 Os dois precisam passar sem erros.

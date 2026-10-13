@@ -18,7 +18,7 @@ RF-23 a RF-26.
 
 - [ ] **T8.1** Rota de servidor que recebe um documento com protocolo e itens  
   Responsável: a definir
-- [ ] **T8.6** Funções de documentos em `lib/documentos.ts`: buscar por protocolo com os itens e os locais com saldo de cada um, confirmar a baixa (`confirmar_saida_documento`) e listar pendentes e baixados  
+- [ ] **T8.6** Funções de documentos em `lib/documentos.ts`: buscar por protocolo com os itens e os locais com saldo de cada um, confirmar a baixa (`confirmarSaidaDocumento`) e listar pendentes e baixados  
   Responsável: a definir
 
 ### Front-end
@@ -27,7 +27,7 @@ RF-23 a RF-26.
   Responsável: a definir
 - [ ] **T8.3** Para cada item, listar os locais com saldo e sugerir de onde tirar  
   Responsável: a definir
-- [ ] **T8.4** Confirmar a baixa com a função `confirmar_saida_documento`  
+- [ ] **T8.4** Confirmar a baixa com a função `confirmarSaidaDocumento`  
   Responsável: a definir
 - [ ] **T8.5** Lista de documentos pendentes e baixados  
   Responsável: a definir

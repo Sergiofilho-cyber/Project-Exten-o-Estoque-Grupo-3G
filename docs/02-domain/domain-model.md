@@ -84,4 +84,4 @@ Perfis e permissões estão em [[security-model]].
 
 ## Onde cada regra é garantida
 
-As regras de Estoque e Documentos são garantidas **dentro do banco de dados**, por funções e restrições. Isso significa que elas valem mesmo que uma tela tenha um defeito ou que alguém acesse o banco por outro caminho. Detalhes em [[banco-de-dados]] e nas decisões [[decisions#ADR-03 Regras de estoque dentro do banco|ADR-03]].
+As regras deste documento são garantidas **pelo backend**, em funções que rodam no servidor, conferem o perfil de quem chama e gravam tudo em transação. Isso significa que elas valem mesmo que uma tela tenha um defeito, porque nenhuma tela fala com o banco. O banco reforça o básico: códigos únicos, quantidades válidas e saldo nunca negativo. Detalhes em [[backend]], em [[banco-de-dados]] e na decisão [[decisions#ADR-15 Regras no backend e banco simples|ADR-15]].

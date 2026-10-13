@@ -18,14 +18,11 @@ Nenhum requisito do [[PRD]] diretamente; atende [[PRD#Requisitos não funcionais
 
 - [ ] **T0.1** Criar o repositório no GitHub com um commit inicial limpo, sem nenhuma chave ou senha no código ou no histórico  
   Responsável: a definir
+- [ ] **T0.2** Criar o projeto Supabase de desenvolvimento e dar acesso a ele à frente de banco de dados  
+  Responsável: a definir
 - [x] **T0.3** Escrever `.env.example` com os nomes das variáveis, sem valores (em `frontend/.env.example`)  
   Responsável: a definir
 - [ ] **T0.5** Proteger a branch `main`: alterações só entram por pull request  
-  Responsável: a definir
-
-### Banco de dados
-
-- [ ] **T0.2** Criar o projeto Supabase de desenvolvimento  
   Responsável: a definir
 
 ### Todas as frentes

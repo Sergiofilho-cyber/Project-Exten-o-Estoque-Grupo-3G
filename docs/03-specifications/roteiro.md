@@ -20,17 +20,17 @@ As etapas 3 e 4 podem andar ao mesmo tempo, assim como 6, 7, 8 e 9.
 
 ## Trabalho por frente
 
-A equipe se divide em três frentes ([[decisions#ADR-13 Divisão do trabalho por frente|ADR-13]]). Dentro de cada etapa, as tarefas estão separadas por frente. As telas não consultam o banco direto: chamam as funções que o backend escreve em `frontend/lib/` ([[decisions#ADR-14 Telas acessam os dados pelas funções de lib|ADR-14]]).
+A equipe se divide em três frentes ([[decisions#ADR-13 Divisão do trabalho por frente|ADR-13]]). Dentro de cada etapa, as tarefas estão separadas por frente. As regras do sistema ficam no backend ([[decisions#ADR-15 Regras no backend e banco simples|ADR-15]]) e o banco é simples. As telas não falam com o banco: chamam as funções que o backend escreve em `frontend/lib/` ([[decisions#ADR-14 Telas acessam os dados pelas funções de lib|ADR-14]]).
 
 ### A fila de cada frente
 
 | Ordem | Banco de dados | Backend | Front-end |
 |---|---|---|---|
-| 1 | Etapa 0: criar o Supabase de desenvolvimento | Etapa 0: repositório e ambiente. Especificação do banco ([[banco-de-dados]]) | Etapa 0: ambiente. Identidade visual e protótipo das telas |
-| 2 | Etapa 1: migração inicial, dados de teste, tipos e testes de proteção | Etapa 2: sessão e proteção de rotas | Etapa 2: telas de login e de "aguardando liberação" |
-| 3 | Correções apontadas na validação | Etapa 1: validar o banco entregue (T1.5). Etapa 2: funções de usuários | Etapa 2: tela de usuários e menu |
-| 4 | Etapa 3: armazenamento de imagens (T3.9) | Funções das etapas 3 e 4 | Telas das etapas 3 e 4 |
-| 5 | Migrações que as próximas etapas pedirem | Funções da etapa 5, depois 6, 7, 8 e 9 | Telas da etapa 5, depois 6, 7, 8 e 9 |
+| 1 | Etapa 0: ambiente. Leitura da especificação ([[banco-de-dados]]) | Etapa 0: repositório, Supabase de desenvolvimento e ambiente. Especificação do banco | Etapa 0: ambiente. Identidade visual e protótipo das telas |
+| 2 | Etapa 1: migração inicial, dados de teste e testes do que o banco recusa | Etapa 1: conexão do servidor com o banco e conferência de perfil (T1.6) | Protótipo das telas |
+| 3 | Correções apontadas na validação | Etapa 1: validar o banco entregue (T1.5). Etapa 2: sessão, proteção de rotas e usuários | Etapa 2: telas de login, "aguardando liberação", usuários e menu |
+| 4 | Migrações novas, quando uma etapa pedir uma mudança no banco | Funções das etapas 3 e 4 | Telas das etapas 3 e 4 |
+| 5 | | Funções da etapa 5, depois 6, 7, 8 e 9 | Telas da etapa 5, depois 6, 7, 8 e 9 |
 
 O backend trabalha uma etapa à frente do front-end: quando o front-end começa as telas de uma etapa, as funções dela já existem.
 
@@ -39,7 +39,7 @@ O backend trabalha uma etapa à frente do front-end: quando o front-end começa 
 | De | Para | Entrega |
 |---|---|---|
 | Backend | Banco de dados | A especificação e o contrato em [[banco-de-dados]] |
-| Banco de dados | Backend | O banco montado no Supabase de desenvolvimento, os dados de teste e os tipos gerados (T1.3) |
+| Banco de dados | Backend | O banco montado no Supabase de desenvolvimento, com os dados de teste e o resultado dos testes do que o banco recusa |
 | Backend | Front-end | As funções de cada etapa em `frontend/lib/`, com os tipos dos dados |
 | Front-end | Backend | O pedido de uma função que falte, antes de a tela ser construída |
 

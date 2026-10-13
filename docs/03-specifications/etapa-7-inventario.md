@@ -16,12 +16,12 @@ RF-20, RF-21, RF-22.
 
 ### Backend
 
-- [ ] **T7.6** Funções de inventário em `lib/inventarios.ts`: abrir (`abrir_inventario`), listar itens, gravar a quantidade contada, incluir item, resumo das diferenças, concluir (`concluir_inventario`) e cancelar  
+- [ ] **T7.6** Funções de inventário em `lib/inventarios.ts`: abrir (`abrirInventario`), listar itens, gravar a quantidade contada, incluir item, resumo das diferenças, concluir (`concluirInventario`) e cancelar (`cancelarInventario`)  
   Responsável: a definir
 
 ### Front-end
 
-- [ ] **T7.1** Abrir inventário de um local (função `abrir_inventario`)  
+- [ ] **T7.1** Abrir inventário de um local (função `abrirInventario`)  
   Responsável: a definir
 - [ ] **T7.2** Tela de contagem, pensada para celular  
   Responsável: a definir
@@ -29,7 +29,7 @@ RF-20, RF-21, RF-22.
   Responsável: a definir
 - [ ] **T7.4** Resumo das diferenças antes de concluir  
   Responsável: a definir
-- [ ] **T7.5** Concluir (função `concluir_inventario`) e cancelar  
+- [ ] **T7.5** Concluir (função `concluirInventario`) e cancelar  
   Responsável: a definir
 
 ## Pronto quando (Definition of Done)

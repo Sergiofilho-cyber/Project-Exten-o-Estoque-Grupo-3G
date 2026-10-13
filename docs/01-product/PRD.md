@@ -53,8 +53,8 @@ Cada requisito tem um código. As tarefas das [[roteiro|etapas]] apontam para es
 |---|---|---|
 | **RNF-01** Integridade | Uma movimentação grava histórico e saldo juntos, ou não grava nada | Teste: forçar erro no meio e conferir que nada mudou |
 | **RNF-02** Concorrência | Duas saídas simultâneas do mesmo item não deixam o saldo errado nem negativo | Teste com duas sessões ao mesmo tempo |
-| **RNF-03** Rastreabilidade | Toda movimentação guarda quem fez e quando; o histórico não pode ser editado | Tentar alterar o histórico e receber erro |
-| **RNF-04** Segurança | Cada perfil só lê e grava o que lhe cabe, e a regra vale no banco, não só na tela | Testes por perfil em [[security-model]] |
+| **RNF-03** Rastreabilidade | Toda movimentação guarda quem fez e quando; o histórico não pode ser editado | Conferir que nenhuma função do backend altera ou apaga uma movimentação |
+| **RNF-04** Segurança | Cada perfil só lê e grava o que lhe cabe, e a regra vale no servidor, não só na tela | Testes por perfil em [[security-model]] |
 | **RNF-05** Uso no celular | Todas as telas de consulta e de baixa funcionam em tela de 360 px de largura | Teste manual no celular |
 | **RNF-06** Desempenho | Busca de produto responde em até 1 segundo com 5 mil variantes | Medir com a carga inicial |
 | **RNF-07** Portabilidade | Um ambiente novo é montado só com os arquivos de migração | Montar do zero seguindo `05-guides/01-setup-ambiente.md` |

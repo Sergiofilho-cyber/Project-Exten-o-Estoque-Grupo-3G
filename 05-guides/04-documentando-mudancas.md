@@ -24,6 +24,7 @@ Toda PR abre com este template preenchido (o GitHub carrega ele automaticamente 
 - [ ] Glossário (`docs/00-context/glossario.md`)
 - [ ] Regras de negócio (`docs/02-domain/domain-model.md`)
 - [ ] Banco de dados (`docs/04-architecture/banco-de-dados.md`)
+- [ ] Backend (`docs/04-architecture/backend.md`)
 - [ ] Decisões (`docs/04-architecture/decisions.md`)
 - [ ] Guias (`05-guides/`)
 ```
@@ -35,7 +36,8 @@ Toda PR abre com este template preenchido (o GitHub carrega ele automaticamente 
 | Se você... | Atualize |
 |------------|----------|
 | Terminou uma tarefa | Marque a caixa no arquivo da etapa em `docs/03-specifications/` |
-| Mudou tabela, coluna, função ou regra de acesso do banco | Crie uma **migração nova** em `backend/supabase/migrations/` (nunca edite uma já aplicada) e atualize `docs/04-architecture/banco-de-dados.md` e `docs/02-domain/domain-model.md` |
+| Mudou tabela, coluna ou restrição do banco | Crie uma **migração nova** em `backend/supabase/migrations/` (nunca edite uma já aplicada) e atualize `docs/04-architecture/banco-de-dados.md` |
+| Mudou uma operação, uma regra ou uma permissão do backend | `docs/04-architecture/backend.md` e, se a regra de negócio mudou, `docs/02-domain/domain-model.md` |
 | Criou ou mudou um termo do negócio (variante, local, baixa...) | `docs/00-context/glossario.md` |
 | Tomou uma decisão técnica relevante (biblioteca, padrão, estrutura) | Novo ADR em `docs/04-architecture/decisions.md` |
 | Mudou algo em como a equipe trabalha ou roda o projeto | O guia correspondente em `05-guides/` |

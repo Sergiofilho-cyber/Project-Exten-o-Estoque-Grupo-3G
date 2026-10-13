@@ -13,6 +13,7 @@
 - [ ] Glossário (`docs/00-context/glossario.md`)
 - [ ] Regras de negócio (`docs/02-domain/domain-model.md`)
 - [ ] Banco de dados (`docs/04-architecture/banco-de-dados.md`)
+- [ ] Backend (`docs/04-architecture/backend.md`)
 - [ ] Decisões (`docs/04-architecture/decisions.md`)
 - [ ] Guias (`05-guides/`)
 

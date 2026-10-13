@@ -23,37 +23,41 @@
 
 ## Onde a regra é aplicada
 
-A permissão é verificada em **dois lugares**:
+A permissão é verificada em **três lugares**:
 
 1. **Na tela**: botões e páginas que o perfil não pode usar não aparecem. Isso é conforto, não segurança.
-2. **No banco**: cada tabela tem políticas de acesso por linha (RLS), e cada função de estoque confere o perfil antes de agir. Esta é a proteção de verdade: vale mesmo que alguém contorne a tela.
+2. **No backend**: toda função confere a sessão e o perfil antes de ler ou gravar qualquer coisa. Esta é a proteção de verdade: vale mesmo que alguém contorne a tela, porque a tela não tem outro caminho até os dados ([[backend#Permissões]]).
+3. **No banco**: a segurança por linha fica ativada sem nenhuma política. Quem tentar acessar as tabelas direto com a chave pública do Supabase não lê nem grava nada ([[banco-de-dados#Acesso]]).
 
-As permissões estão concentradas em três funções do banco. Mudar quem pode o quê é alterar uma delas:
+As permissões estão concentradas em três funções de `frontend/lib/cargos.ts`. Mudar quem pode o quê é alterar uma delas:
 
 | Função | Verdadeira para |
 |---|---|
-| `pode_consultar()` | estoquista, gerente, gerente de estoque, admin |
-| `pode_operar()` | gerente de estoque, admin |
-| `e_admin()` | admin |
+| `podeConsultar` | estoquista, gerente, gerente de estoque, admin |
+| `podeOperar` | gerente de estoque, admin |
+| `eAdmin` | admin |
 
 ## Autenticação
 
 - Login por e-mail e senha, feito pelo Supabase.
-- A sessão fica em cookie e é validada no servidor a cada requisição.
-- Todo cadastro novo recebe perfil `pendente` automaticamente.
+- A sessão fica em cookie e é validada no servidor a cada chamada.
+- Todo cadastro novo recebe perfil `pendente`, criado pelo backend.
 - O autor de uma movimentação é sempre o usuário da sessão. Nenhuma tela envia "quem fez".
 
 ## Segredos
 
-| Chave | Onde pode ficar | Observação |
+| Segredo | Onde pode ficar | Observação |
 |---|---|---|
-| URL do projeto e chave pública | `.env.local` e navegador | Seguras por causa das políticas do banco |
-| Chave de serviço | Somente `.env.local` do servidor | Ignora todas as políticas. Nunca vai para o navegador nem para o repositório. Hoje nenhuma parte do aplicativo usa essa chave; ela só entra se uma decisão registrada em [[decisions]] exigir |
+| URL do projeto e chave pública do Supabase | `.env.local` e navegador | Servem só para o login. O banco não aceita leitura nem gravação com a chave pública |
+| Conexão do banco (`DATABASE_URL`) | Somente `.env.local`, usada só no servidor | Dá acesso total aos dados. Nunca vai para o navegador nem para o repositório |
+| Chave de serviço do Supabase | Somente `.env.local`, usada só no servidor | Hoje nenhuma parte do aplicativo usa essa chave; ela só entra se uma decisão registrada em [[decisions]] exigir |
 
 Regras:
 - `.env.local` está no `.gitignore` e nunca é enviado ao repositório.
 - Nenhum arquivo do repositório contém chave escrita no código, nem em scripts de teste.
-- Se uma chave vazar, ela é trocada no painel do Supabase na mesma hora.
+- Variáveis que começam com `NEXT_PUBLIC_` vão para o navegador. `DATABASE_URL` nunca recebe esse prefixo.
+- A `DATABASE_URL` que a equipe usa é a do banco de **desenvolvimento**. A de produção fica só no servidor da empresa.
+- Se uma chave ou a senha do banco vazar, ela é trocada no painel do Supabase na mesma hora.
 
 ## Dados pessoais (LGPD)
 
@@ -61,4 +65,8 @@ O sistema guarda poucos dados pessoais: nome e e-mail dos usuários, e o nome do
 
 ## Como testar
 
-Para cada perfil, entrar no sistema e conferir a tabela de permissões acima. O teste precisa incluir a tentativa pelo banco, não só pela tela: por exemplo, chamar `registrar_movimentacao` logado como estoquista deve devolver erro de permissão.
+1. Para cada perfil, entrar no sistema e conferir a tabela de permissões acima.
+2. Repetir a tentativa **chamando a função do backend**, não só pela tela: por exemplo, `registrarMovimentacao` chamada com a sessão de um estoquista deve devolver erro de permissão.
+3. Tentar ler uma tabela direto, com a chave pública do Supabase: não deve voltar nenhuma linha.
+
+A lista completa de proteções está em [[backend#Proteções garantidas pelo backend]].

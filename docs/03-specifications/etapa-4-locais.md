@@ -18,7 +18,7 @@ RF-09, RF-10, RF-11.
 
 - [ ] **T4.3** Sugestão automática de código a partir do local pai  
   Responsável: a definir
-- [ ] **T4.6** Funções de locais em `lib/locais.ts`: listar a árvore com o caminho completo, criar, editar, mover e desativar  
+- [ ] **T4.6** Funções de locais em `lib/locais.ts`: listar a árvore com o caminho completo, criar, editar, mover (sem deixar um local dentro de um descendente) e desativar (só sem saldo)  
   Responsável: a definir
 
 ### Front-end
@@ -29,7 +29,7 @@ RF-09, RF-10, RF-11.
   Responsável: a definir
 - [ ] **T4.4** Mover local para dentro de outro  
   Responsável: a definir
-- [ ] **T4.5** Desativar local, com a mensagem do banco quando há mercadoria  
+- [ ] **T4.5** Desativar local, com a mensagem do backend quando há mercadoria  
   Responsável: a definir
 
 ## Pronto quando (Definition of Done)

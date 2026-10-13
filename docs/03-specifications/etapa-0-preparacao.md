@@ -16,7 +16,7 @@ Nenhum requisito do [[PRD]] diretamente; atende [[PRD#Requisitos não funcionais
 
 ### Backend
 
-- [ ] **T0.1** Criar o repositório no GitHub com um commit inicial limpo, sem nenhuma chave ou senha no código ou no histórico  
+- [x] **T0.1** Criar o repositório no GitHub com um commit inicial limpo, sem nenhuma chave ou senha no código ou no histórico  
   Responsável: a definir
 - [ ] **T0.2** Criar o projeto Supabase de desenvolvimento e dar acesso a ele à frente de banco de dados  
   Responsável: a definir

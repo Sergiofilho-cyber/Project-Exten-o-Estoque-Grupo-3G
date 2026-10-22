@@ -74,6 +74,7 @@ Se algum item falhar, veja os problemas comuns abaixo e o guia [07 — Quando tr
 | Tela "aguardando liberação" após o login | Perfil ainda `pendente` |
 | "Seu perfil não tem permissão" ao movimentar | Seu perfil não é gerente de estoque nem admin |
 | Erro de conexão com o banco ao abrir qualquer tela | `SUPABASE_SECRET_KEY` ausente ou errada no `.env.local` |
+| Cadastro falha com "Muitos e-mails enviados em pouco tempo" | Limite de envio de e-mails do Supabase. Aguarde cerca de 1 hora. A solução definitiva está em "Confirmação de e-mail no cadastro", em `docs/04-architecture/decisions.md` |
 | Listas vazias | Dados de teste não aplicados, ou perfil sem permissão de leitura |
 
 ## Montando um banco do zero

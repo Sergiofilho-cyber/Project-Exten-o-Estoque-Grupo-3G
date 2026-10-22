@@ -111,6 +111,11 @@ Cada decisão registra o contexto, o que foi escolhido e o que isso custa. Decis
 
 ## Pendentes
 
+### Confirmação de e-mail no cadastro
+- **Contexto**: o Supabase, no plano gratuito e sem servidor de e-mail próprio, permite poucos e-mails de cadastro por hora no projeto inteiro. Quando o limite estoura, ninguém consegue se cadastrar (`over_email_send_rate_limit`). Os 7 integrantes vão se cadastrar em sequência, então o problema se repete. O projeto Supabase pertence à frente de banco de dados.
+- **Opções**: (a) desligar a opção "Confirmar e-mail" em Authentication > Entrar / Fornecedores > E-mail; (b) configurar um servidor de e-mail próprio (SMTP); (c) manter como está e aguardar o limite zerar.
+- **Recomendação**: (a). O usuário novo fica como `pendente` até um administrador liberar, então um cadastro com e-mail falso não ganha acesso a nada. Depende de a frente de banco de dados concordar e fazer a mudança.
+
 ### Publicação em container na VPS
 - **Contexto**: o aplicativo será publicado como container em uma VPS. A configuração antiga de publicação (PM2) foi removida na [[etapa-0-preparacao|Etapa 0]] por não estar documentada.
 - **Opções**: definir na reta final do projeto, ou preparar o container antes, assim que o ambiente de produção estiver definido.

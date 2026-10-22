@@ -29,7 +29,7 @@ Base para todos; prepara RNF-01, RNF-02, RNF-03, RNF-04 e RNF-07.
   Responsável: a definir
 - [x] **T1.5** Validar o banco entregue: conferir nomes e tipos contra o contrato e repetir os testes do que o banco recusa (feito em 19/10/2026)  
   Responsável: a definir
-- [ ] **T1.6** Conexão do servidor com o banco e conferência de sessão e perfil em `backend/src/servidor/`  
+- [ ] **T1.6** Conexão do servidor com o banco e conferência de sessão e perfil em `backend/src/servidor/` (conexão feita e testada em 22/10/2026; falta a conferência de perfil dentro das funções)  
   Responsável: a definir
 
 ## Pronto quando (Definition of Done)

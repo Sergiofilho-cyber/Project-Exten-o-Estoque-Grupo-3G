@@ -17,7 +17,7 @@ As regras ficam no backend e o banco é simples: `docs/04-architecture/backend.m
 
 - Use os nomes de `docs/00-context/glossario.md` em tabelas, variáveis e telas. Código de negócio em português.
 - Toda regra de negócio fica no backend. O banco não tem funções, gatilhos, visões nem regras por perfil: só tabelas, ligações, valores únicos e limites simples.
-- Estoque só é alterado pelas operações do backend: `registrarMovimentacao`, `confirmarSaidaDocumento`, `abrirInventario`, `concluirInventario`. Cada uma roda em transação, com trava na linha de saldo. Nenhuma tela soma ou subtrai saldo.
+- Estoque só é alterado pelas operações do backend: `registrarMovimentacao`, `confirmarSaidaDocumento`, `abrirInventario`, `concluirInventario`. Cada uma grava o saldo de forma condicional (só se ele não mudou desde a leitura) e desfaz o que já gravou se algo falhar. Nenhuma tela soma ou subtrai saldo.
 - Telas não falam com o banco: chamam as funções de `backend/src/`, que devolvem `{ ok, dados }` ou `{ ok, erro }` (`backend/src/resultado.ts`).
 - Toda função do backend confere a sessão e o perfil antes de agir. O autor de uma ação vem da sessão, nunca de um campo enviado pela tela.
 - Tabelas e colunas do banco têm os nomes do contrato em `docs/04-architecture/banco-de-dados.md`.
@@ -27,5 +27,5 @@ As regras ficam no backend e o banco é simples: `docs/04-architecture/backend.m
 - Toda tela precisa funcionar em celular (360 px). Telas e acabamento visual são da frente de front-end.
 - Trabalhe uma etapa por vez, na ordem de `docs/03-specifications/roteiro.md`. Ao terminar uma tarefa, marque a caixa no arquivo da etapa e atualize a documentação afetada.
 - Antes de dizer que terminou, rode `npm run lint` e `npm run typecheck` na raiz e mostre o resultado.
-- Nenhuma chave ou senha em arquivo do repositório. Segredos ficam em `frontend/.env.local`. `DATABASE_URL` só existe no servidor.
+- Nenhuma chave ou senha em arquivo do repositório. Segredos ficam em `frontend/.env.local`. `SUPABASE_SECRET_KEY` só existe no servidor.
 - Não rode comandos que alterem um banco remoto nem faça `git push` sem o responsável pedir.

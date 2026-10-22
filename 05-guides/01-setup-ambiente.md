@@ -50,7 +50,7 @@ Preencha o `frontend/.env.local` com os valores que o responsável pelo projeto 
 |---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` | Endereço do projeto Supabase |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Chave pública, usada no login |
-| `DATABASE_URL` | Conexão do servidor com o banco de desenvolvimento. Dá acesso total aos dados: trate como senha |
+| `SUPABASE_SECRET_KEY` | Chave secreta do projeto de desenvolvimento (Project Settings > API Keys). Dá acesso total aos dados: trate como senha |
 
 ## 6. Rodar
 
@@ -73,7 +73,8 @@ Se algum item falhar, veja os problemas comuns abaixo e o guia [07 — Quando tr
 |---|---|
 | Tela "aguardando liberação" após o login | Perfil ainda `pendente` |
 | "Seu perfil não tem permissão" ao movimentar | Seu perfil não é gerente de estoque nem admin |
-| Erro de conexão com o banco ao abrir qualquer tela | `DATABASE_URL` ausente ou errada no `.env.local` |
+| Erro de conexão com o banco ao abrir qualquer tela | `SUPABASE_SECRET_KEY` ausente ou errada no `.env.local` |
+| Cadastro falha com "Muitos e-mails enviados em pouco tempo" | Limite de envio de e-mails do Supabase. Aguarde cerca de 1 hora. A solução definitiva está em "Confirmação de e-mail no cadastro", em `docs/04-architecture/decisions.md` |
 | Listas vazias | Dados de teste não aplicados, ou perfil sem permissão de leitura |
 
 ## Montando um banco do zero

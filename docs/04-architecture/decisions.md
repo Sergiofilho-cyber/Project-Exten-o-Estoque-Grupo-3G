@@ -19,7 +19,7 @@ Cada decisão registra o contexto, o que foi escolhido e o que isso custa. Decis
 - **Decisão**: toda alteração de estoque passa por funções do banco, em transação, com trava na linha de saldo.
 - **Ganho**: as regras valem para qualquer tela ou integração; não existe operação pela metade.
 - **Custo**: parte da lógica fica em SQL, que menos gente da equipe domina. Atenuado com a documentação em [[banco-de-dados]].
-- **Situação**: substituída pelo [[#ADR-15 Regras no backend e banco simples|ADR-15]]. As regras continuam em transação e com trava no saldo, mas quem as executa é o backend.
+- **Situação**: substituída pelo [[#ADR-15 Regras no backend e banco simples|ADR-15]]. As regras continuam valendo, mas quem as executa é o backend, e a garantia de transação foi alterada pelo [[#ADR-16 Backend acessa o banco pela chave secreta|ADR-16]]
 
 ## ADR-04 Saldo derivado do histórico
 - **Contexto**: um saldo digitável não explica como chegou àquele valor.
@@ -80,7 +80,7 @@ Cada decisão registra o contexto, o que foi escolhido e o que isso custa. Decis
 | Frente | Integrantes | Cuida de |
 |---|---|---|
 | Backend | Antonio Geovane Porto Camelo (líder) e Joel Caleb Coelho dos Santos | Todas as regras e operações do sistema ([[backend]]): as funções de `backend/src/`, a conexão com o banco, a conferência de perfil, `proxy.ts` (sessão e proteção de rotas) e `app/api/` (rotas para outros sistemas). Escreve a especificação do banco, valida o banco entregue e testa as regras |
-| Banco de dados | Lucas Amaro Oliveira (líder), Lucas Soares Saraiva e Felipe Cauã Pereira Ladislau Costa | `backend/supabase/`: cria as tabelas, as restrições e os índices da especificação em [[banco-de-dados]], ativa a segurança por linha, cria os dados de teste e testa o que o banco precisa recusar. Não escreve funções, gatilhos nem regras por perfil |
+| Banco de dados | Lucas Amaro Oliveira (líder), Lucas Soares Saraiva e Felipe Cauã Pereira Ladislau Costa | `backend/supabase/`: cria as tabelas e as restrições da especificação em [[banco-de-dados]] (os índices são opcionais), ativa a segurança por linha, cria os dados de teste e testa o que o banco precisa recusar. Não escreve funções, gatilhos nem regras por perfil |
 | Front-end | Eduardo Martins da Silva do Carmo (líder) e Antonio Sergio Freitas Rodrigues Filho | Telas e componentes em `frontend/app/` e `frontend/components/`, incluindo as telas funcionais, a identidade visual e a tipografia |
 
 - **Ordem das fases**: (1) o backend estrutura a base do aplicativo e especifica o banco; (2) a frente de banco constrói o banco; (3) o backend valida o banco, liga o servidor a ele e escreve as funções de cada etapa; (4) o front-end constrói as telas sobre essas funções e aplica o design. O plano de ação entregue à faculdade descreve as mesmas fases.
@@ -100,9 +100,21 @@ Cada decisão registra o contexto, o que foi escolhido e o que isso custa. Decis
   - O **backend** concentra todas as regras: confere a sessão e o perfil, valida os dados e executa cada operação em uma transação, com trava na linha de saldo. Usa uma conexão direta do servidor com o banco. Toda leitura e toda gravação passam por ele ([[backend]]).
   - Substitui o [[#ADR-03 Regras de estoque dentro do banco|ADR-03]].
 - **Ganho**: o peso técnico fica com a frente mais experiente; a frente de banco tem uma entrega curta e objetiva; as regras ficam em TypeScript, que toda a equipe lê; continua não existindo operação pela metade nem saldo errado por duas operações simultâneas.
+- **Situação**: o acesso ao banco e a garantia de atomicidade foram alterados pelo [[#ADR-16 Backend acessa o banco pela chave secreta|ADR-16]].
 - **Custo**: as regras valem para tudo que passa pelo backend, e não mais para qualquer acesso ao banco. Quem acessar o banco por fora do sistema encontra só os limites simples. O servidor passa a guardar um segredo a mais, a conexão com o banco (`DATABASE_URL`), que dá acesso total aos dados.
 
+## ADR-16 Backend acessa o banco pela chave secreta
+- **Contexto**: o [[#ADR-15 Regras no backend e banco simples|ADR-15]] previa uma conexão direta com o banco, com a senha do banco (`DATABASE_URL`), para gravar saldo e histórico em uma transação. O projeto Supabase pertence a quem criou o banco e a senha não é compartilhada com a frente de backend. Além disso, só o gerente de estoque movimenta estoque ([[#ADR-08 Baixa sempre pelo gerente de estoque|ADR-08]]), então o risco de duas operações simultâneas é mínimo.
+- **Decisão**: o backend usa o cliente `supabase-js` com a chave secreta (`SUPABASE_SECRET_KEY`), que só existe no servidor e ignora a segurança por linha. Não há transação: o saldo é gravado de forma condicional (só se não mudou desde a leitura), e, se uma gravação falhar depois de outra, o backend tenta desfazer e registra o erro ([[backend#Como uma operação de estoque acontece]]).
+- **Ganho**: não depende da senha do banco; usa o mesmo cliente do login; é simples de configurar; o saldo continua protegido contra duas operações simultâneas.
+- **Custo**: perde a garantia de "tudo ou nada". Uma falha de rede entre duas gravações, somada a uma falha ao desfazer, pode deixar saldo e histórico diferentes. O risco é pequeno com um único operador, e o inventário corrige a diferença. Se o número de operadores ou o volume crescer, volta-se à conexão direta com transação, em um novo ADR.
+
 ## Pendentes
+
+### Confirmação de e-mail no cadastro
+- **Contexto**: o Supabase, no plano gratuito e sem servidor de e-mail próprio, permite poucos e-mails de cadastro por hora no projeto inteiro. Quando o limite estoura, ninguém consegue se cadastrar (`over_email_send_rate_limit`). Os 7 integrantes vão se cadastrar em sequência, então o problema se repete. O projeto Supabase pertence à frente de banco de dados.
+- **Opções**: (a) desligar a opção "Confirmar e-mail" em Authentication > Entrar / Fornecedores > E-mail; (b) configurar um servidor de e-mail próprio (SMTP); (c) manter como está e aguardar o limite zerar.
+- **Recomendação**: (a). O usuário novo fica como `pendente` até um administrador liberar, então um cadastro com e-mail falso não ganha acesso a nada. Depende de a frente de banco de dados concordar e fazer a mudança.
 
 ### Publicação em container na VPS
 - **Contexto**: o aplicativo será publicado como container em uma VPS. A configuração antiga de publicação (PM2) foi removida na [[etapa-0-preparacao|Etapa 0]] por não estar documentada.

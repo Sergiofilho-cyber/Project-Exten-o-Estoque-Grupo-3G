@@ -84,4 +84,4 @@ Perfis e permissões estão em [[security-model]].
 
 ## Onde cada regra é garantida
 
-As regras deste documento são garantidas **pelo backend**, em funções que rodam no servidor, conferem o perfil de quem chama e gravam tudo em transação. Isso significa que elas valem mesmo que uma tela tenha um defeito, porque nenhuma tela fala com o banco. O banco reforça o básico: códigos únicos, quantidades válidas e saldo nunca negativo. Detalhes em [[backend]], em [[banco-de-dados]] e na decisão [[decisions#ADR-15 Regras no backend e banco simples|ADR-15]].
+As regras deste documento são garantidas **pelo backend**, em funções que rodam no servidor, conferem o perfil de quem chama e gravam o saldo de forma condicional. Isso significa que elas valem mesmo que uma tela tenha um defeito, porque nenhuma tela fala com o banco. O banco reforça o básico: códigos únicos, quantidades válidas e saldo nunca negativo. Detalhes em [[backend]], em [[banco-de-dados]] e na decisão [[decisions#ADR-15 Regras no backend e banco simples|ADR-15]].

@@ -56,7 +56,7 @@ Cada requisito tem um código. As tarefas das [[roteiro|etapas]] apontam para es
 | **RNF-03** Rastreabilidade | Toda movimentação guarda quem fez e quando; o histórico não pode ser editado | Conferir que nenhuma função do backend altera ou apaga uma movimentação |
 | **RNF-04** Segurança | Cada perfil só lê e grava o que lhe cabe, e a regra vale no servidor, não só na tela | Testes por perfil em [[security-model]] |
 | **RNF-05** Uso no celular | Todas as telas de consulta e de baixa funcionam em tela de 360 px de largura | Teste manual no celular |
-| **RNF-06** Desempenho | Busca de produto responde em até 1 segundo com 5 mil variantes | Medir com a carga inicial |
+| **RNF-06** Desempenho | Objetivo: busca de produto responde em até 1 segundo com 5 mil variantes, sem exigir índices extras no início | Medir com a carga inicial. Se passar de 1 segundo, criar os índices de [[banco-de-dados#Índices]] |
 | **RNF-07** Portabilidade | Um ambiente novo é montado só com os arquivos de migração | Montar do zero seguindo `05-guides/01-setup-ambiente.md` |
 | **RNF-08** Adaptabilidade | Tipos de local, categorias e atributos são dados, não código | Cadastrar uma categoria nova sem alterar o sistema |
 

@@ -9,8 +9,8 @@
 | **TypeScript** (modo estrito) | Linguagem | Aponta erros antes de o código rodar, o que ajuda quem está começando |
 | **Tailwind CSS 4** | Estilo | Layout responsivo sem escrever arquivos de CSS |
 | **Supabase** | Banco de dados, login e arquivos | Entrega PostgreSQL, autenticação e armazenamento de imagens prontos |
-| **PostgreSQL** | Banco de dados | Relacional, com transações e trava de linha |
-| **postgres** (biblioteca) | Conexão do servidor com o banco | Permite ao backend fazer várias gravações em uma única transação |
+| **PostgreSQL** | Banco de dados | Relacional, com restrições que recusam valores inválidos |
+| **supabase-js** | Acesso do servidor ao banco e ao login | Cliente oficial do Supabase. O backend o usa com a chave secreta |
 | **lucide-react** | Ícones | Leve e consistente |
 
 ## Como as partes conversam
@@ -27,7 +27,7 @@ Supabase  -- login, banco PostgreSQL, imagens
 
 - O login é feito pelo Supabase e a sessão fica em cookie.
 - As telas chamam as funções de `backend/src/`, que rodam no servidor. O navegador nunca fala com o banco (ver [[decisions#ADR-14 Telas acessam os dados pelas funções de lib|ADR-14]]).
-- O backend confere o perfil de quem chama e aplica todas as regras, em transação (ver [[backend]] e [[security-model]]). Nenhuma tela calcula saldo.
+- O backend confere o perfil de quem chama e aplica todas as regras, gravando o saldo de forma condicional (ver [[backend]] e [[security-model]]). Nenhuma tela calcula saldo.
 - O banco guarda os dados e recusa valores inválidos (ver [[banco-de-dados]]).
 
 ## Onde fica cada parte no repositório

@@ -34,7 +34,7 @@ RF-01, RF-02, RF-03, RNF-04.
 - [ ] **T2.5** Menu e navegação no celular conforme o perfil  
   Responsável: a definir
 
-A base de T2.4 e T2.6 já está no repositório (`proxy.ts`, `backend/src/sessao.ts`, que roda no servidor, e telas provisórias em `app/login` e `app/pendente`). Falta testar com o banco da Etapa 1: a criação e a leitura do perfil usam a tabela `perfis` ([[backend]]).
+A base de T2.4 e T2.6 está no repositório (`proxy.ts`, `backend/src/sessao.ts`, que roda no servidor, e telas provisórias em `app/login` e `app/pendente`) e foi testada contra o banco real em 22/10/2026: login, leitura do perfil, liberação de cargo e sair. Falta testar o **cadastro pela tela**, bloqueado pelo limite de e-mails do Supabase (ver "Confirmação de e-mail no cadastro" em [[decisions#Pendentes]]).
 
 ## Pronto quando (Definition of Done)
 

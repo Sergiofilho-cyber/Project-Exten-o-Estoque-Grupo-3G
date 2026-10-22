@@ -49,14 +49,13 @@ As permissões estão concentradas em três funções de `backend/src/cargos.ts`
 | Segredo | Onde pode ficar | Observação |
 |---|---|---|
 | URL do projeto e chave pública do Supabase | `.env.local` e navegador | Servem só para o login. O banco não aceita leitura nem gravação com a chave pública |
-| Conexão do banco (`DATABASE_URL`) | Somente `.env.local`, usada só no servidor | Dá acesso total aos dados. Nunca vai para o navegador nem para o repositório |
-| Chave de serviço do Supabase | Somente `.env.local`, usada só no servidor | Hoje nenhuma parte do aplicativo usa essa chave; ela só entra se uma decisão registrada em [[decisions]] exigir |
+| Chave secreta do Supabase (`SUPABASE_SECRET_KEY`) | Somente `.env.local`, usada só no servidor | Dá acesso total aos dados e ignora a segurança por linha. Nunca vai para o navegador nem para o repositório |
 
 Regras:
 - `.env.local` está no `.gitignore` e nunca é enviado ao repositório.
 - Nenhum arquivo do repositório contém chave escrita no código, nem em scripts de teste.
-- Variáveis que começam com `NEXT_PUBLIC_` vão para o navegador. `DATABASE_URL` nunca recebe esse prefixo.
-- A `DATABASE_URL` que a equipe usa é a do banco de **desenvolvimento**. A de produção fica só no servidor da empresa.
+- Variáveis que começam com `NEXT_PUBLIC_` vão para o navegador. `SUPABASE_SECRET_KEY` nunca recebe esse prefixo.
+- A chave secreta que a equipe usa é a do projeto de **desenvolvimento**. A de produção fica só no servidor da empresa.
 - Se uma chave ou a senha do banco vazar, ela é trocada no painel do Supabase na mesma hora.
 
 ## Dados pessoais (LGPD)

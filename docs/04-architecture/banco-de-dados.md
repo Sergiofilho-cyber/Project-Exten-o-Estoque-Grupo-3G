@@ -4,7 +4,7 @@ Este documento é a especificação do banco, escrita para a frente de banco de 
 
 ## O que a frente de banco entrega
 
-1. Uma migração em `backend/supabase/migrations/` com os tipos, as tabelas, as restrições e os índices deste documento.
+1. Uma migração em `backend/supabase/migrations/` com os tipos, as tabelas e as restrições deste documento. Os índices são opcionais (ver "Índices").
 2. A segurança por linha (RLS) ativada em todas as tabelas, **sem nenhuma política** (ver "Acesso").
 3. Dados de teste em `backend/supabase/seed.sql` (ver "Dados de teste").
 4. Os testes da seção "O que o banco precisa recusar", feitos no Supabase de desenvolvimento.
@@ -236,11 +236,11 @@ Por causa do comportamento padrão, uma variante que já tem movimentação não
 
 Ative a segurança por linha (RLS) em **todas** as tabelas e **não crie nenhuma política**.
 
-Com isso, quem usa a chave pública do Supabase (o navegador) não lê nem grava nenhuma linha. Só o backend acessa os dados, por uma conexão própria do servidor, e é ele que confere o perfil de cada usuário ([[security-model]]). Sem a RLS ativada, o Supabase deixaria as tabelas abertas para qualquer pessoa com a chave pública.
+Com isso, quem usa a chave pública do Supabase (o navegador) não lê nem grava nenhuma linha. Só o backend acessa os dados, usando a chave secreta do Supabase, que só existe no servidor, e é ele que confere o perfil de cada usuário ([[security-model]]). Sem a RLS ativada, o Supabase deixaria as tabelas abertas para qualquer pessoa com a chave pública.
 
 ## Índices
 
-Além dos índices que o banco cria sozinho para chaves e colunas únicas:
+**São opcionais.** O sistema trabalha com poucos dados (cerca de 3 mil itens no início) e funciona sem eles. Crie-os só se as consultas ficarem lentas, em uma migração nova. Além dos índices que o banco cria sozinho para chaves e colunas únicas, estes são os que valem a pena:
 
 | Tabela | Colunas | Para quê |
 |---|---|---|
@@ -260,7 +260,7 @@ O arquivo pode ser aplicado mais de uma vez para voltar ao estado inicial. Não 
 
 ## O que o banco precisa recusar
 
-É o critério de aceite do banco. Cada linha precisa ser testada no Supabase de desenvolvimento antes de o banco ser entregue.
+É o critério de aceite do banco. Cada linha precisa ser testada no Supabase de desenvolvimento antes de o banco ser entregue. Última verificação: 19/10/2026, no Supabase de desenvolvimento, com 23 de 23 testes recusados como esperado.
 
 | Tentativa | Resultado esperado |
 |---|---|

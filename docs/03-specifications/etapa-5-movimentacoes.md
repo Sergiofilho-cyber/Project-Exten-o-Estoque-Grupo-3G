@@ -16,7 +16,7 @@ RF-12 a RF-16, RNF-01, RNF-02, RNF-03.
 
 ### Backend
 
-- [ ] **T5.6** Funções de movimentação em `backend/src/movimentacoes.ts`: entrada, transferência e saída avulsa pela função `registrarMovimentacao`, em transação e com trava no saldo; saldo de uma variante em um local; histórico por variante e geral, com filtro por período e paginação  
+- [ ] **T5.6** Funções de movimentação em `backend/src/movimentacoes.ts`: entrada, transferência e saída avulsa pela função `registrarMovimentacao`, com gravação condicional do saldo; saldo de uma variante em um local; histórico por variante e geral, com filtro por período e paginação  
   Responsável: a definir
 
 ### Front-end

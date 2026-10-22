@@ -48,14 +48,14 @@ export async function cadastrar(dados: DadosDeCadastro): Promise<Resultado<null>
     return falha("Não foi possível criar a conta. Tente novamente.");
   }
 
-  try {
-    await banco()`
-      insert into perfis (id, nome, email, cargo)
-      values (${data.user.id}, ${nome}, ${dados.email}, 'pendente')
-      on conflict (id) do nothing
-    `;
-  } catch (erro) {
-    console.error("[sessao] Falha ao criar o perfil:", erro);
+  const { error: erroPerfil } = await banco()
+    .from("perfis")
+    .upsert(
+      { id: data.user.id, nome, email: dados.email, cargo: "pendente" },
+      { onConflict: "id", ignoreDuplicates: true },
+    );
+  if (erroPerfil) {
+    console.error("[sessao] Falha ao criar o perfil:", erroPerfil.message);
     return falha("A conta foi criada, mas o perfil não. Fale com o administrador.");
   }
   return sucesso(null);
@@ -81,17 +81,17 @@ export async function buscarPerfilAtual(): Promise<Resultado<Perfil | null>> {
     return sucesso(null);
   }
 
-  try {
-    const linhas = await banco()<{ id: string; nome: string; email: string; cargo: string }[]>`
-      select id, nome, email, cargo from perfis where id = ${user.id}
-    `;
-    const perfil = linhas[0];
-    if (!perfil || !eCargo(perfil.cargo)) {
-      return falha("Seu perfil não foi encontrado. Fale com o administrador.");
-    }
-    return sucesso({ id: perfil.id, nome: perfil.nome, email: perfil.email, cargo: perfil.cargo });
-  } catch (erro) {
-    console.error("[sessao] Falha ao buscar o perfil:", erro);
+  const { data: perfil, error } = await banco()
+    .from("perfis")
+    .select("id, nome, email, cargo")
+    .eq("id", user.id)
+    .maybeSingle();
+  if (error) {
+    console.error("[sessao] Falha ao buscar o perfil:", error.message);
     return falha("Não foi possível carregar seu perfil.");
   }
+  if (!perfil || !eCargo(perfil.cargo)) {
+    return falha("Seu perfil não foi encontrado. Fale com o administrador.");
+  }
+  return sucesso({ id: perfil.id, nome: perfil.nome, email: perfil.email, cargo: perfil.cargo });
 }

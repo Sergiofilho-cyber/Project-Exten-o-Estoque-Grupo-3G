@@ -1,21 +1,25 @@
 import "server-only";
-import postgres from "postgres";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
-type Conexao = ReturnType<typeof postgres>;
+// Em desenvolvimento o Next recarrega os módulos a cada alteração. Guardar o
+// cliente no objeto global evita criar um novo a cada recarga.
+const global = globalThis as typeof globalThis & { clienteDoBanco?: SupabaseClient };
 
-// Em desenvolvimento o Next recarrega os módulos a cada alteração. Guardar a
-// conexão no objeto global evita abrir uma nova a cada recarga.
-const global = globalThis as typeof globalThis & { conexaoDoBanco?: Conexao };
-
-// Conexão direta do servidor com o banco. É o único caminho até os dados.
-export function banco(): Conexao {
-  if (!global.conexaoDoBanco) {
-    const url = process.env.DATABASE_URL;
-    if (!url) {
-      throw new Error("DATABASE_URL não está definida. Veja frontend/.env.example.");
+// Cliente do Supabase com a chave secreta. Ela ignora a segurança por linha e
+// dá acesso total aos dados, por isso só existe no servidor. É o único caminho
+// do sistema até as tabelas (ADR-16).
+export function banco(): SupabaseClient {
+  if (!global.clienteDoBanco) {
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const chave = process.env.SUPABASE_SECRET_KEY;
+    if (!url || !chave) {
+      throw new Error(
+        "NEXT_PUBLIC_SUPABASE_URL e SUPABASE_SECRET_KEY precisam estar definidas. Veja frontend/.env.example.",
+      );
     }
-    // prepare: false é exigido pelo pooler do Supabase.
-    global.conexaoDoBanco = postgres(url, { prepare: false });
+    global.clienteDoBanco = createClient(url, chave, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
   }
-  return global.conexaoDoBanco;
+  return global.clienteDoBanco;
 }

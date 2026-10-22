@@ -19,7 +19,7 @@ Cada decisão registra o contexto, o que foi escolhido e o que isso custa. Decis
 - **Decisão**: toda alteração de estoque passa por funções do banco, em transação, com trava na linha de saldo.
 - **Ganho**: as regras valem para qualquer tela ou integração; não existe operação pela metade.
 - **Custo**: parte da lógica fica em SQL, que menos gente da equipe domina. Atenuado com a documentação em [[banco-de-dados]].
-- **Situação**: substituída pelo [[#ADR-15 Regras no backend e banco simples|ADR-15]]. As regras continuam em transação e com trava no saldo, mas quem as executa é o backend.
+- **Situação**: substituída pelo [[#ADR-15 Regras no backend e banco simples|ADR-15]]. As regras continuam valendo, mas quem as executa é o backend, e a garantia de transação foi alterada pelo [[#ADR-16 Backend acessa o banco pela chave secreta|ADR-16]]
 
 ## ADR-04 Saldo derivado do histórico
 - **Contexto**: um saldo digitável não explica como chegou àquele valor.
@@ -100,7 +100,14 @@ Cada decisão registra o contexto, o que foi escolhido e o que isso custa. Decis
   - O **backend** concentra todas as regras: confere a sessão e o perfil, valida os dados e executa cada operação em uma transação, com trava na linha de saldo. Usa uma conexão direta do servidor com o banco. Toda leitura e toda gravação passam por ele ([[backend]]).
   - Substitui o [[#ADR-03 Regras de estoque dentro do banco|ADR-03]].
 - **Ganho**: o peso técnico fica com a frente mais experiente; a frente de banco tem uma entrega curta e objetiva; as regras ficam em TypeScript, que toda a equipe lê; continua não existindo operação pela metade nem saldo errado por duas operações simultâneas.
+- **Situação**: o acesso ao banco e a garantia de atomicidade foram alterados pelo [[#ADR-16 Backend acessa o banco pela chave secreta|ADR-16]].
 - **Custo**: as regras valem para tudo que passa pelo backend, e não mais para qualquer acesso ao banco. Quem acessar o banco por fora do sistema encontra só os limites simples. O servidor passa a guardar um segredo a mais, a conexão com o banco (`DATABASE_URL`), que dá acesso total aos dados.
+
+## ADR-16 Backend acessa o banco pela chave secreta
+- **Contexto**: o [[#ADR-15 Regras no backend e banco simples|ADR-15]] previa uma conexão direta com o banco, com a senha do banco (`DATABASE_URL`), para gravar saldo e histórico em uma transação. O projeto Supabase pertence a quem criou o banco e a senha não é compartilhada com a frente de backend. Além disso, só o gerente de estoque movimenta estoque ([[#ADR-08 Baixa sempre pelo gerente de estoque|ADR-08]]), então o risco de duas operações simultâneas é mínimo.
+- **Decisão**: o backend usa o cliente `supabase-js` com a chave secreta (`SUPABASE_SECRET_KEY`), que só existe no servidor e ignora a segurança por linha. Não há transação: o saldo é gravado de forma condicional (só se não mudou desde a leitura), e, se uma gravação falhar depois de outra, o backend tenta desfazer e registra o erro ([[backend#Como uma operação de estoque acontece]]).
+- **Ganho**: não depende da senha do banco; usa o mesmo cliente do login; é simples de configurar; o saldo continua protegido contra duas operações simultâneas.
+- **Custo**: perde a garantia de "tudo ou nada". Uma falha de rede entre duas gravações, somada a uma falha ao desfazer, pode deixar saldo e histórico diferentes. O risco é pequeno com um único operador, e o inventário corrige a diferença. Se o número de operadores ou o volume crescer, volta-se à conexão direta com transação, em um novo ADR.
 
 ## Pendentes
 

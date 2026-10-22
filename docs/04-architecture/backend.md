@@ -11,14 +11,14 @@ Tela (navegador)
 Função do backend (roda no servidor do Next.js)
    |  1. confere a sessão e o perfil
    |  2. valida os dados recebidos
-   |  3. executa a operação em uma transação
+   |  3. executa a operação, gravando o saldo de forma condicional
    v
 Banco PostgreSQL (Supabase)
 ```
 
 - **O navegador nunca fala com o banco.** Toda leitura e toda gravação passam por uma função do backend.
 - **O login é do Supabase.** A sessão fica em cookie e é validada no servidor a cada chamada.
-- **O servidor tem uma conexão direta com o banco**, guardada em `DATABASE_URL`, que só existe no servidor. É ela que permite fazer várias gravações juntas, em transação.
+- **O servidor acessa o banco com a chave secreta do Supabase** (`SUPABASE_SECRET_KEY`), que só existe no servidor. Ela ignora a segurança por linha, e é por isso que só o backend a usa ([[decisions#ADR-16 Backend acessa o banco pela chave secreta|ADR-16]]).
 - **O banco é simples de propósito**: guarda os dados e recusa valores inválidos. Quem decide se uma operação pode acontecer é o backend.
 
 ## Organização do código
@@ -63,12 +63,13 @@ O perfil `pendente` e quem não tem sessão não leem nem gravam nada, exceto o 
 
 1. A função confere a sessão e se o perfil pode operar.
 2. Valida os dados recebidos (quantidade maior que zero, origem e destino de acordo com o tipo).
-3. Abre uma **transação**: daqui em diante, ou tudo é gravado, ou nada é.
-4. Se há local de origem, **trava** a linha de saldo daquela variante naquele local. Outra operação sobre o mesmo saldo espera a vez. É isso que impede duas saídas simultâneas de deixarem o saldo errado.
-5. Confere se o saldo é suficiente. Se não for, desfaz tudo e devolve o erro.
-6. Diminui o saldo da origem e aumenta o do destino.
-7. Grava a linha em `movimentacoes`, com o usuário da sessão.
-8. Confirma a transação e devolve o resultado.
+3. Se há local de origem, lê o saldo daquela variante naquele local e confere se é suficiente. Se não for, devolve o erro e nada é gravado.
+4. Grava o novo saldo da origem **de forma condicional**: só grava se o saldo ainda for o que foi lido. Se outra operação o mudou nesse meio tempo, a gravação não afeta nenhuma linha e a função devolve um erro pedindo para tentar de novo. É isso que impede duas operações simultâneas de deixarem o saldo errado.
+5. Grava o saldo do destino, somando ao que já existe ou criando a linha.
+6. Grava a linha em `movimentacoes`, com o usuário da sessão.
+7. Se uma gravação falhar depois de outra já ter acontecido, tenta **desfazer** as anteriores (grava o saldo de volta) e registra o erro no servidor com `console.error`.
+
+**Limite conhecido:** como não há transação, uma falha de rede entre duas gravações, somada a uma falha ao desfazer, pode deixar saldo e histórico diferentes. Como só o gerente de estoque movimenta (ADR-08), o risco é pequeno, e o inventário corrige a diferença.
 
 Nenhuma tela soma ou subtrai saldo. Nenhuma outra parte do sistema grava em `saldos` ou em `movimentacoes`.
 
@@ -110,7 +111,7 @@ Dá baixa em um documento de saída. As retiradas dizem de qual local sai cada i
 
 ### abrirInventario
 
-- Só pode existir um inventário `aberto` por local. A função trava o local antes de conferir.
+- Só pode existir um inventário `aberto` por local. A função confere se já existe um aberto para o local antes de criar.
 - Copia para `inventario_itens` cada variante com saldo maior que zero naquele local, guardando o saldo do momento em `quantidade_sistema`.
 
 ### concluirInventario
@@ -171,7 +172,7 @@ São o critério de aceite do backend. Cada linha precisa de um teste.
 |---|---|
 | Saída ou transferência maior que o saldo | Erro "Saldo insuficiente", nada é gravado |
 | Duas saídas simultâneas do mesmo item | O saldo final é o correto e nunca fica negativo |
-| Falha no meio de uma operação | Nada é gravado: saldo e histórico continuam como estavam |
+| Falha no meio de uma operação | O backend tenta desfazer o que já gravou e registra o erro |
 | Entrada com local de origem preenchido | Recusada |
 | Baixar o mesmo documento duas vezes | Erro na segunda tentativa |
 | Retirada diferente do pedido no documento | Erro, nada é baixado |
@@ -187,6 +188,6 @@ São o critério de aceite do backend. Cada linha precisa de um teste.
 | Variável | Onde fica | Para que serve |
 |---|---|---|
 | `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Servidor e navegador | Login |
-| `DATABASE_URL` | Só no servidor | Conexão do backend com o banco. Dá acesso total aos dados: nunca vai para o navegador nem para o repositório |
+| `SUPABASE_SECRET_KEY` | Só no servidor | Chave secreta do Supabase. Dá acesso total aos dados e ignora a segurança por linha: nunca vai para o navegador nem para o repositório |
 
 Detalhes em [[security-model#Segredos]].

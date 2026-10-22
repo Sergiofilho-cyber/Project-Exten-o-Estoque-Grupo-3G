@@ -236,7 +236,7 @@ Por causa do comportamento padrão, uma variante que já tem movimentação não
 
 Ative a segurança por linha (RLS) em **todas** as tabelas e **não crie nenhuma política**.
 
-Com isso, quem usa a chave pública do Supabase (o navegador) não lê nem grava nenhuma linha. Só o backend acessa os dados, por uma conexão própria do servidor, e é ele que confere o perfil de cada usuário ([[security-model]]). Sem a RLS ativada, o Supabase deixaria as tabelas abertas para qualquer pessoa com a chave pública.
+Com isso, quem usa a chave pública do Supabase (o navegador) não lê nem grava nenhuma linha. Só o backend acessa os dados, usando a chave secreta do Supabase, que só existe no servidor, e é ele que confere o perfil de cada usuário ([[security-model]]). Sem a RLS ativada, o Supabase deixaria as tabelas abertas para qualquer pessoa com a chave pública.
 
 ## Índices
 

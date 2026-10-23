@@ -20,7 +20,7 @@ export function Etiqueta({ tom = "neutro", className, ...props }: EtiquetaProps)
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium",
+        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.6875rem] font-semibold uppercase tracking-wide",
         TONS[tom],
         className,
       )}

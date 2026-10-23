@@ -23,7 +23,7 @@ export function Cartao({ titulo, descricao, icone: Icone, className, children, .
             </span>
           )}
           <div className="min-w-0">
-            {titulo && <h2 className="text-base font-semibold text-slate-900">{titulo}</h2>}
+            {titulo && <h2 className="text-display-3 text-slate-900">{titulo}</h2>}
             {descricao && <p className="mt-0.5 text-sm text-slate-500">{descricao}</p>}
           </div>
         </header>

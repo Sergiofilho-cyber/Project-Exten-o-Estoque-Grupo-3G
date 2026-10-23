@@ -26,7 +26,9 @@ export function Cabecalho({ nome, cargo, aoSair, saindo = false }: CabecalhoProp
         </span>
 
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold text-slate-900">Estoque 3G</p>
+          <p className="truncate font-display text-sm font-bold tracking-tight text-slate-900">
+            Estoque 3G
+          </p>
           <p className="truncate text-xs text-slate-500">{nome}</p>
         </div>
 

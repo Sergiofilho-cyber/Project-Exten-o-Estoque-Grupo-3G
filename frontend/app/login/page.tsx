@@ -71,12 +71,14 @@ export default function LoginPage() {
           <span className="mx-auto mb-3 grid size-12 place-items-center rounded-xl bg-marca-600 text-white">
             <Boxes className="size-6" aria-hidden />
           </span>
-          <h1 className="text-2xl font-bold text-slate-900">Estoque 3G</h1>
-          <p className="mt-1 text-sm text-slate-500">Catalogação e endereçamento de estoque</p>
+          <h1 className="text-display-1 text-slate-900">Estoque 3G</h1>
+          <p className="mt-2 text-eyebrow uppercase text-slate-500">
+            Catalogação e endereçamento de estoque
+          </p>
         </div>
 
         <Cartao>
-          <h2 className="mb-4 text-lg font-semibold text-slate-900">{titulo}</h2>
+          <h2 className="mb-4 text-display-3 text-slate-900">{titulo}</h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {modo === "cadastrar" && (

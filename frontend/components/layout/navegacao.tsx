@@ -46,7 +46,7 @@ export function Navegacao({ cargo }: { cargo: Cargo }) {
               href={href}
               aria-current={ativo ? "page" : undefined}
               className={cn(
-                "flex min-w-16 flex-col items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-medium transition-colors",
+                "flex min-w-16 flex-col items-center gap-1 rounded-lg px-3 py-1.5 text-[0.6875rem] font-semibold uppercase tracking-wide transition-colors",
                 ativo
                   ? "bg-marca-50 text-marca-700"
                   : "text-slate-500 hover:bg-slate-50 hover:text-slate-700",
